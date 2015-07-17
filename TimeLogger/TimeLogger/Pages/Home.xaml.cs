@@ -30,5 +30,12 @@ namespace TimeLogger.Pages
             if (!LogItem.Validate(this.datetimepicker.DisplayDate, this.txtbox_start.Text.ToString(), this.txtbox_start.Text.ToString()))
                 this.txtbox_start.Foreground = new SolidColorBrush(Colors.Red);
         }
+
+        private void txtbox_end_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TimeSpan abc = new TimeSpan();
+            if (!TimeSpan.TryParse(this.txtbox_end.Text, out abc))
+                this.txtbox_end.Foreground = new SolidColorBrush(Colors.Red);
+        }
     }
 }
