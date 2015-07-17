@@ -33,6 +33,23 @@ namespace TimeLogger
             this.End = endtime;
         }
         /// <summary>
+        /// Legt eine neue Instanz von LogItem anhand eines Strings des Formats "Datum;Startzeit;Endzeit" an
+        /// </summary>
+        /// <param name="str"></param>
+        public LogItem(string str)
+        {
+            string[] data = str.Split(';');
+            DateTime date = new DateTime();
+            DateTime.TryParse(data[0], out date);
+            this.Date = date;
+            TimeSpan start = new TimeSpan();
+            TimeSpan.TryParse(data[1], out start);
+            this.Start = start;
+            TimeSpan end = new TimeSpan();
+            TimeSpan.TryParse(data[2], out end);
+            this.End = end;
+        }
+        /// <summary>
         /// Gibt das LogItem in "Datum;Startzeit;Endzeit" Format zurück
         /// </summary>
         /// <returns>String, der das LogItems darstellt</returns>

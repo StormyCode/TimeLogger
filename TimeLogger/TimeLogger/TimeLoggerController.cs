@@ -63,5 +63,29 @@ namespace TimeLogger
             }
                 
         }
+        /// <summary>
+        /// Liest LogFile ein, wenn existent
+        /// </summary>
+        public void ReadLogFile()
+        {
+            if(System.IO.File.Exists(String.Format("{0}/{1}", this.ExportDirectory, this.ExportFileName)))
+                foreach (string line in System.IO.File.ReadAllLines(String.Format("{0}/{1}", this.ExportDirectory, this.ExportFileName)))
+                {
+                    this.LogList.Add(new LogItem(line));
+                }
+        }
+        /// <summary>
+        /// Errechnet die Gesamtzeitdifferenz für alle LogItems der LogList
+        /// </summary>
+        /// <returns>TimeSpan, die die Gesamtzeitdifferenz aller LogItems der Loglist darstellt</returns>
+        public TimeSpan GetLogSum()
+        {
+            TimeSpan sum = new TimeSpan();
+            foreach (LogItem item in this.LogList)
+            {
+                sum.Add(item.GetDifference());
+            }
+            return sum;
+        }
     }
 }
