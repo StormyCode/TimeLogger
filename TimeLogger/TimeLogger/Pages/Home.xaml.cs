@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimeLogger;
 
 namespace ModernUINavigation_Test.Pages
 {
@@ -23,6 +24,11 @@ namespace ModernUINavigation_Test.Pages
         public Home()
         {
             InitializeComponent();
+        }
+
+        private void txtbox_start_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
         }
     }
 }
