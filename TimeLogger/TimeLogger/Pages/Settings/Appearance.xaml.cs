@@ -12,23 +12,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TimeLogger;
 
-namespace ModernUINavigation_Test.Pages
+namespace ModernUINavigation_Test.Pages.Settings
 {
     /// <summary>
-    /// Interaction logic for Home.xaml
+    /// Interaction logic for Appearance.xaml
     /// </summary>
-    public partial class Home : UserControl
+    public partial class Appearance : UserControl
     {
-        public Home()
+        public Appearance()
         {
             InitializeComponent();
-        }
 
-        private void txtbox_start_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
+            // create and assign the appearance view model
+            this.DataContext = new AppearanceViewModel();
         }
     }
 }

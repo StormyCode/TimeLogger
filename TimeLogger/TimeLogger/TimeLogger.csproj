@@ -56,9 +56,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Pages\Settings\About.xaml.cs" />
+    <Compile Include="Pages\Settings\Appearance.xaml.cs" />
+    <Compile Include="Pages\Settings\AppearanceViewModel.cs" />
     <Compile Include="Pages\Home.xaml.cs" />
     <Compile Include="Pages\SettingsPage.xaml.cs" />
     <Compile Include="TimeLoggerController.cs" />
+    <Page Include="Pages\Settings\About.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Settings\Appearance.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\Home.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

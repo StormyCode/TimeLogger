@@ -12,23 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TimeLogger;
 
-namespace ModernUINavigation_Test.Pages
+namespace ModernUINavigation_Test.Pages.Settings
 {
     /// <summary>
-    /// Interaction logic for Home.xaml
+    /// Interaction logic for About.xaml
     /// </summary>
-    public partial class Home : UserControl
+    public partial class About : UserControl
     {
-        public Home()
+        public About()
         {
             InitializeComponent();
-        }
-
-        private void txtbox_start_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
         }
     }
 }
