@@ -22,7 +22,7 @@ namespace ModernUINavigation_Test.Pages
     {
         public Home()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
     }
 }
