@@ -24,5 +24,11 @@ namespace TimeLogger.Pages
         {
             InitializeComponent();
         }
+
+        private void txtbox_start_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!LogItem.Validate(this.datetimepicker.DisplayDate, this.txtbox_start.Text.ToString(), this.txtbox_start.Text.ToString()))
+                Console.WriteLine("");
+        }
     }
 }
