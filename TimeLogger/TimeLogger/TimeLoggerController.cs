@@ -63,5 +63,16 @@ namespace TimeLogger
             }
                 
         }
+        /// <summary>
+        /// Liest LogFile ein, wenn existent
+        /// </summary>
+        public void ReadLogFile()
+        {
+            if(System.IO.File.Exists(String.Format("{0}/{1}", this.ExportDirectory, this.ExportFileName)))
+                foreach (string line in System.IO.File.ReadAllLines(String.Format("{0}/{1}", this.ExportDirectory, this.ExportFileName)))
+                {
+                    this.LogList.Add(new LogItem(line));
+                }
+        }
     }
 }
