@@ -74,5 +74,18 @@ namespace TimeLogger
                     this.LogList.Add(new LogItem(line));
                 }
         }
+        /// <summary>
+        /// Errechnet die Gesamtzeitdifferenz für alle LogItems der LogList
+        /// </summary>
+        /// <returns>TimeSpan, die die Gesamtzeitdifferenz aller LogItems der Loglist darstellt</returns>
+        public TimeSpan GetLogSum()
+        {
+            TimeSpan sum = new TimeSpan();
+            foreach (LogItem item in this.LogList)
+            {
+                sum.Add(item.GetDifference());
+            }
+            return sum;
+        }
     }
 }
