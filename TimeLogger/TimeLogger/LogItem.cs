@@ -28,5 +28,13 @@ namespace TimeLogger
         {
             return String.Format("{0};{1};{2}", this.Date, this.Start, this.End);
         }
+        /// <summary>
+        /// Gibt die Differenz zwischen Start- und Endzeit zurück
+        /// </summary>
+        /// <returns>TimeSpan, der die Differenz zwischen Start- und Endzeit widerspiegelt</returns>
+        public TimeSpan GetDifference()
+        {
+            return this.End.Subtract(this.Start);
+        }
     }
 }
