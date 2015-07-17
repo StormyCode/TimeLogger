@@ -48,5 +48,21 @@ namespace TimeLogger
         {
             return this.End.Subtract(this.Start);
         }
+        /// <summary>
+        /// Statische Methode, die ermittelt, ob das Datum und die Zeitangaben zulässig sind
+        /// </summary>
+        /// <param name="date">Datum des LogItems</param>
+        /// <param name="starttime">Startzeit des LogItems</param>
+        /// <param name="endtime">Endzeit des LogItems</param>
+        /// <returns></returns>
+        public static bool Validate(DateTime date, string starttime, string endtime)
+        {
+            bool valid = true;
+            TimeSpan start = new TimeSpan();
+            valid &= TimeSpan.TryParse(starttime, out start);
+            TimeSpan end = new TimeSpan();
+            valid &= TimeSpan.TryParse(endtime, out end);
+            return valid;
+        }
     }
 }
