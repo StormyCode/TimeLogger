@@ -28,7 +28,7 @@ namespace TimeLogger.Pages
         private void txtbox_start_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!LogItem.Validate(this.datetimepicker.DisplayDate, this.txtbox_start.Text.ToString(), this.txtbox_start.Text.ToString()))
-                Console.WriteLine("");
+                this.txtbox_start.Foreground = new SolidColorBrush(Colors.Red);
         }
     }
 }
