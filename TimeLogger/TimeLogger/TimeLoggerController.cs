@@ -42,5 +42,21 @@ namespace TimeLogger
                 }
             }
         }
+        /// <summary>
+        /// Fügt der LogList ein neues LogItem hinzu, vorrausgesetzt die übergebenen Zeiten sind zulässig
+        /// </summary>
+        /// <param name="date">Datum des hinzuzufügenden LogItems</param>
+        /// <param name="starttime">Startzeit des hinzuzufügenden LogItems</param>
+        /// <param name="endtime">Endzeit des hinzuzufügenden LogItems</param>
+        public void Log(DateTime date, string starttime, string endtime)
+        {
+            bool valid = true;
+            TimeSpan start = new TimeSpan();
+            valid &= TimeSpan.TryParse(starttime, out start);
+            TimeSpan end = new TimeSpan();
+            valid &= TimeSpan.TryParse(endtime, out end);
+            if (valid)
+                this.LogList.Add(new LogItem(date, start, end));
+        }
     }
 }
