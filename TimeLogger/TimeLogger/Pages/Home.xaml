@@ -12,7 +12,6 @@
                 <Calendar x:Name="datetimepicker" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             </StackPanel>
         </ScrollViewer>
-        <TextBox x:Name="txtbox_start" HorizontalAlignment="Left" Height="23" Margin="231,37,-151,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtbox_end" HorizontalAlignment="Left" Height="23" Margin="231,82,-151,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TextChanged="txtbox_end_TextChanged"/>
+        <TextBox x:Name="txtbox_start" HorizontalAlignment="Left" Height="23" Margin="229,55,-149,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </UserControl>
