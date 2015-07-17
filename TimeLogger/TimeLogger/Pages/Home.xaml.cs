@@ -23,6 +23,7 @@ namespace TimeLogger.Pages
         public Home()
         {
             InitializeComponent();
+            TimeLoggerController tlc = new TimeLoggerController(@"C://Users/" + Environment.UserName + "/desktop/");
         }
 
         private void txtbox_start_TextChanged(object sender, TextChangedEventArgs e)

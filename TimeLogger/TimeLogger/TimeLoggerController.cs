@@ -20,6 +20,14 @@ namespace TimeLogger
         /// Liste aller LogItems
         /// </summary>
         public List<LogItem> LogList { get; private set; }
+
+        public TimeLoggerController(string path)
+        {
+            this.ExportDirectory = path;
+            this.ExportFileName = "log.txt";
+            this.LogList = new List<LogItem>();
+            ReadLogFile();
+        }
         /// <summary>
         /// Überschreibt das LogFile mit allen Einträgen der LogList
         /// </summary>
