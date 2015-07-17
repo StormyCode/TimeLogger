@@ -24,5 +24,10 @@ namespace TimeLogger.Pages
         {
             InitializeComponent();
         }
+
+        private void txtbox_end_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+        }
     }
 }
