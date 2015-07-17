@@ -21,6 +21,18 @@ namespace TimeLogger
         /// </summary>
         public TimeSpan End { get; set; }
         /// <summary>
+        /// Legt eine neue Instanz von LogItem mit bestimmtem Datum und Zeiten an
+        /// </summary>
+        /// <param name="date">Datum des LogItems</param>
+        /// <param name="starttime">Startzeit des LogItems</param>
+        /// <param name="endtime">Endzeit des LogItems</param>
+        public LogItem(DateTime date, TimeSpan starttime, TimeSpan endtime)
+        {
+            this.Date = date;
+            this.Start = starttime;
+            this.End = endtime;
+        }
+        /// <summary>
         /// Gibt das LogItem in "Datum;Startzeit;Endzeit" Format zurück
         /// </summary>
         /// <returns>String, der das LogItems darstellt</returns>
