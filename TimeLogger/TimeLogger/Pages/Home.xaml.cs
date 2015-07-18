@@ -43,5 +43,14 @@ namespace TimeLogger.Pages
             else
                 this.txtbox_end.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffd1d1d1"));
         }
+
+        private void datetimepicker_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            base.OnPreviewMouseUp(e);
+            if (Mouse.Captured is Calendar || Mouse.Captured is System.Windows.Controls.Primitives.CalendarItem)
+            {
+                Mouse.Capture(null);
+            }
+        }
     }
 }
