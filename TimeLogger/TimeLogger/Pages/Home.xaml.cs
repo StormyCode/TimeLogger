@@ -39,9 +39,15 @@ namespace TimeLogger.Pages
         {
             TimeSpan abc = new TimeSpan();
             if (!TimeSpan.TryParse(this.txtbox_end.Text, out abc))
+            {
                 this.txtbox_end.Foreground = new SolidColorBrush(Colors.Red);
+                //this.txtbox_end.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
             else
+            {
                 this.txtbox_end.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffd1d1d1"));
+                //this.txtbox_end.BorderBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffd1d1d1"));
+            }
         }
 
         private void datetimepicker_PreviewMouseUp(object sender, MouseButtonEventArgs e)
