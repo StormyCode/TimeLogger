@@ -67,16 +67,38 @@ namespace TimeLogger
                 //Parse Endzeit
                 TimeSpan end = new TimeSpan();
                 TimeSpan.TryParse(endtime, out end);
-                this.LogList.Add(new LogItem(date, start, end));
+
+                //Überprüft, ob bereits ein LogItems für angegebens Datum vorhanden ist
+                bool exists = false;
+                foreach (LogItem item in this.LogList)
+                {
+                    if (item.Date == date)
+                    {
+                        //ändert Werte falls vorhanden
+                        exists = true;
+                        item.Start = start;
+                        item.End = end;
+                        break;
+                    }
+                }
+                //legt neues LogItem an, wenn noch nicht vorhanden
+                if(!exists)
+                    this.LogList.Add(new LogItem(date, start, end));
+
+                //Updated das LogFile
+                this.UpdateLogFile();
             }
-                
+
+
+
+
         }
         /// <summary>
         /// Liest LogFile ein, wenn existent
         /// </summary>
         public void ReadLogFile()
         {
-            if(System.IO.File.Exists(String.Format("{0}/{1}", this.ExportDirectory, this.ExportFileName)))
+            if (System.IO.File.Exists(String.Format("{0}/{1}", this.ExportDirectory, this.ExportFileName)))
                 foreach (string line in System.IO.File.ReadAllLines(String.Format("{0}/{1}", this.ExportDirectory, this.ExportFileName)))
                 {
                     this.LogList.Add(new LogItem(line));
