@@ -104,6 +104,7 @@ namespace TimeLogger
                     {
                         //Überschreibe des gefunden LogItems mit dem neuen LogItem
                         this.LogList[i] = item;
+                        this.UpdateLogFile();
                         return;
                     }
                 }
@@ -120,7 +121,7 @@ namespace TimeLogger
             if (System.IO.File.Exists(String.Format("{0}/{1}", this.ExportDirectory, this.ExportFileName)))
                 foreach (string line in System.IO.File.ReadAllLines(String.Format("{0}/{1}", this.ExportDirectory, this.ExportFileName)))
                 {
-                    this.LogList.Add(new LogItem(line));
+                    this.Log(new LogItem(line));
                 }
         }
         /// <summary>

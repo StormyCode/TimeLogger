@@ -9,7 +9,7 @@
     <Grid Style="{StaticResource ContentRoot}" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="280" Width="388">
         <ScrollViewer VerticalAlignment="Top" HorizontalAlignment="Left" Width="380" Height="234">
             <StackPanel MinWidth="200" HorizontalAlignment="Left" VerticalAlignment="Top" Height="234" Width="380">
-                <RichTextBox Height="204" Width="368" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <RichTextBox x:Name="richtxtbox" Height="204" Width="368" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Loaded="RichTextBox_Loaded">
                     <FlowDocument>
                         <Paragraph>
                             <Run Text=""/>
