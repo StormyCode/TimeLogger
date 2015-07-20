@@ -20,10 +20,11 @@ namespace TimeLogger.Pages
     /// </summary>
     public partial class Home : UserControl
     {
+        private TimeLoggerController tlc { get; set; }
         public Home()
         {
             InitializeComponent();
-            TimeLoggerController tlc = new TimeLoggerController(@"C://Users/" + Environment.UserName + "/desktop/");
+            tlc = new TimeLoggerController(@"C://Users/" + Environment.UserName + "/desktop/");
         }
 
         private void txtbox_start_TextChanged(object sender, TextChangedEventArgs e)
@@ -56,6 +57,16 @@ namespace TimeLogger.Pages
             if (Mouse.Captured is Calendar || Mouse.Captured is System.Windows.Controls.Primitives.CalendarItem)
             {
                 Mouse.Capture(null);
+            }
+        }
+
+        private void datetimepicker_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LogItem item = this.tlc.GetLogItemByDate((DateTime)this.datetimepicker.SelectedDate);
+            if (item != null)
+            {
+                this.txtbox_start.Text = item.Start.ToString("hh:MM");
+                this.txtbox_end.Text = item.End.ToString("hh:MM");
             }
         }
     }
