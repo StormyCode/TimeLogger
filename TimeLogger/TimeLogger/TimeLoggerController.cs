@@ -109,6 +109,7 @@ namespace TimeLogger
                 }
                 //Falls kein LogItem mit gegebenem Datum vorhanden ist, wird das neue LogItem einfach der LogList hinzugefügt
                 this.LogList.Add(item);
+                this.UpdateLogFile();
             }
         }
         /// <summary>

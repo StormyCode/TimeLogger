@@ -65,9 +65,14 @@ namespace TimeLogger.Pages
             LogItem item = this.tlc.GetLogItemByDate((DateTime)this.datetimepicker.SelectedDate);
             if (item != null)
             {
-                this.txtbox_start.Text = item.Start.ToString("hh:MM");
-                this.txtbox_end.Text = item.End.ToString("hh:MM");
+                this.txtbox_start.Text = item.Start.ToString(@"hh\:mm");
+                this.txtbox_end.Text = item.End.ToString(@"hh\:mm");
             }
+        }
+
+        private void action_button_Click(object sender, RoutedEventArgs e)
+        {
+            this.tlc.Log(new LogItem(String.Format("{0};{1};{2}", (DateTime)this.datetimepicker.SelectedDate, this.txtbox_start.Text, this.txtbox_end.Text)));
         }
     }
 }
