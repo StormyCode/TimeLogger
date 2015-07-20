@@ -25,6 +25,7 @@ namespace TimeLogger.Pages
         {
             InitializeComponent();
             tlc = new TimeLoggerController(@"C://Users/" + Environment.UserName + "/desktop/");
+            this.datetimepicker.SelectedDate = DateTime.Today;
         }
 
         private void txtbox_start_TextChanged(object sender, TextChangedEventArgs e)
@@ -34,6 +35,10 @@ namespace TimeLogger.Pages
                 this.txtbox_start.Foreground = new SolidColorBrush(Colors.Red);
             else
                 this.txtbox_start.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffd1d1d1"));
+            //Setzt den Enabled Wert für den Action-Button abhängig davon ob die Inhalte beider Textboxen zulässige Eingaben sind
+            TimeSpan start = new TimeSpan();
+            TimeSpan end = new TimeSpan();
+            this.action_button.IsEnabled = TimeSpan.TryParse(this.txtbox_start.Text, out start) && TimeSpan.TryParse(this.txtbox_end.Text, out end);
         }
 
         private void txtbox_end_TextChanged(object sender, TextChangedEventArgs e)
@@ -49,6 +54,10 @@ namespace TimeLogger.Pages
                 this.txtbox_end.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffd1d1d1"));
                 //this.txtbox_end.BorderBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffd1d1d1"));
             }
+            //Setzt den Enabled Wert für den Action-Button abhängig davon ob die Inhalte beider Textboxen zulässige Eingaben sind
+            TimeSpan start = new TimeSpan();
+            TimeSpan end = new TimeSpan();
+            this.action_button.IsEnabled = TimeSpan.TryParse(this.txtbox_start.Text, out start) && TimeSpan.TryParse(this.txtbox_end.Text, out end);
         }
 
         private void datetimepicker_PreviewMouseUp(object sender, MouseButtonEventArgs e)
