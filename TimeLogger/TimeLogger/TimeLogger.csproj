@@ -62,6 +62,10 @@
     <Compile Include="Pages\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\SettingsPage.xaml.cs" />
+    <Compile Include="Pages\Settings\About.xaml.cs" />
+    <Compile Include="Pages\Settings\Appearance.xaml.cs" />
+    <Compile Include="Pages\Settings\AppearanceViewModel.cs" />
     <Compile Include="TimeLoggerController.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -83,6 +87,18 @@
     <Page Include="Pages\Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Settings\About.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Settings\Appearance.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -112,9 +128,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Settings\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
