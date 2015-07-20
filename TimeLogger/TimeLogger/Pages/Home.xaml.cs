@@ -68,6 +68,11 @@ namespace TimeLogger.Pages
                 this.txtbox_start.Text = item.Start.ToString(@"hh\:mm");
                 this.txtbox_end.Text = item.End.ToString(@"hh\:mm");
             }
+            else
+            {
+                this.txtbox_start.Text = String.Empty;
+                this.txtbox_end.Text = String.Empty;
+            }
         }
 
         private void action_button_Click(object sender, RoutedEventArgs e)
