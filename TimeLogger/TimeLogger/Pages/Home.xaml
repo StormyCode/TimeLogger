@@ -12,7 +12,9 @@
                 <Calendar x:Name="datetimepicker" VerticalAlignment="Center" HorizontalAlignment="Left" PreviewMouseUp="datetimepicker_PreviewMouseUp"/>
             </StackPanel>
         </ScrollViewer>
-        <TextBox x:Name="txtbox_start" HorizontalAlignment="Left" Height="23" Margin="231,37,-151,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="txtbox_start_TextChanged"/>
-        <TextBox x:Name="txtbox_end" HorizontalAlignment="Left" Height="23" Margin="231,82,-151,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="txtbox_end_TextChanged"/>
+        <TextBox x:Name="txtbox_start" HorizontalAlignment="Left" Height="23" Margin="231,21,-82,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="txtbox_start_TextChanged"/>
+        <TextBox x:Name="txtbox_end" HorizontalAlignment="Left" Height="23" Margin="231,117,-82,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="txtbox_end_TextChanged"/>
+        <Label Content="Startzeit:" HorizontalAlignment="Left" Margin="231,0,-31,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="14"/>
+        <Label Content="Endzeit:" HorizontalAlignment="Left" Margin="231,96,-3,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="14"/>
     </Grid>
 </UserControl>
