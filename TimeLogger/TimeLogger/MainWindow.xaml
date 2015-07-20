@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
         Title="TimeLogger" IsTitleVisible="True" ResizeMode="CanMinimize" Height="400"
-        ContentSource="/Pages/Home.xaml">
+        ContentSource="/Pages/Home.xaml" Width="500" HorizontalAlignment="Center">
 
     <mui:ModernWindow.TitleLinks>
         <mui:Link DisplayName="settings" Source="/Pages/SettingsPage.xaml" />

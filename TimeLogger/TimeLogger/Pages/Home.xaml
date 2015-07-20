@@ -6,7 +6,7 @@
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
              d:DesignHeight="234" d:DesignWidth="388">
-    <Grid Style="{StaticResource ContentRoot}" HorizontalAlignment="Left" VerticalAlignment="Top">
+    <Grid Style="{StaticResource ContentRoot}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="16,28,0,0" Width="362">
         <ScrollViewer HorizontalAlignment="Left" VerticalAlignment="Top">
             <StackPanel MinWidth="200">
                 <Calendar x:Name="datetimepicker" VerticalAlignment="Center" HorizontalAlignment="Left" PreviewMouseUp="datetimepicker_PreviewMouseUp" FontFamily="Verdana"/>
@@ -16,6 +16,6 @@
         <TextBox x:Name="txtbox_end" HorizontalAlignment="Left" Height="23" Margin="231,82,-65,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="txtbox_end_TextChanged"/>
         <Label Content="Startzeit:" HorizontalAlignment="Left" Margin="231,0,-31,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="14"/>
         <Label Content="Endzeit:" HorizontalAlignment="Left" Margin="231,60,-3,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="14"/>
-        <Button x:Name="action_button" Content="Action-Button" HorizontalAlignment="Left" Margin="231,148,-65,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="action_button" Content="Action-Button" HorizontalAlignment="Left" Margin="231,146,-65,0" VerticalAlignment="Top" Width="120" Height="34"/>
     </Grid>
 </UserControl>
