@@ -95,18 +95,21 @@ namespace TimeLogger
         /// <param name="item">Das einzufügende LogItem</param>
         public void Log(LogItem item)
         {
-            //Suche nach LogItem mit gleichem Datum
-            for (int i = 0; i < this.LogList.Count; i++)
+            if (LogItem.Validate(item))
             {
-                if (this.LogList[i].Date == item.Date)
+                //Suche nach LogItem mit gleichem Datum
+                for (int i = 0; i < this.LogList.Count; i++)
                 {
-                    //Überschreibe des gefunden LogItems mit dem neuen LogItem
-                    this.LogList[i] = item;
-                    return;
+                    if (this.LogList[i].Date == item.Date)
+                    {
+                        //Überschreibe des gefunden LogItems mit dem neuen LogItem
+                        this.LogList[i] = item;
+                        return;
+                    }
                 }
+                //Falls kein LogItem mit gegebenem Datum vorhanden ist, wird das neue LogItem einfach der LogList hinzugefügt
+                this.LogList.Add(item);
             }
-            //Falls kein LogItem mit gegebenem Datum vorhanden ist, wird das neue LogItem einfach der LogList hinzugefügt
-            this.LogList.Add(item);
         }
         /// <summary>
         /// Liest LogFile ein, wenn existent
