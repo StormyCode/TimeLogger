@@ -81,5 +81,14 @@ namespace TimeLogger
             valid &= TimeSpan.TryParse(endtime, out end);
             return valid;
         }
+        /// <summary>
+        /// Statische Methode, die ermittelt, ob das Datum und die Zeitangaben zulässig sind
+        /// </summary>
+        /// <param name="item">Das überprüfende LogItem</param>
+        /// <returns></returns>
+        public static bool Validate(LogItem item)
+        {
+            return LogItem.Validate(item.Date, item.Start.ToString(), item.End.ToString());
+        }
     }
 }
