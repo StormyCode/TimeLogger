@@ -36,7 +36,7 @@ namespace TimeLogger.Pages
             {
                 if (txt.Length > 0)
                     txt += "\n";
-                txt += String.Format("{0}\t{1}\t{2}", item.Date.ToShortDateString(), item.Start.ToString(@"hh\:mm"), item.End.ToString(@"hh\:mm"));
+                txt += String.Format("{0}\t{1}\t{2}\t{3}", item.Date.ToShortDateString(), item.Start.ToString(@"hh\:mm"), item.End.ToString(@"hh\:mm"), item.GetDifference().ToString(@"hh\:mm"));
             }
             richtxtbox.AppendText(txt);
         }
