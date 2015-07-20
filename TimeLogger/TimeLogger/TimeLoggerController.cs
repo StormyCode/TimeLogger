@@ -135,5 +135,19 @@ namespace TimeLogger
             }
             return sum;
         }
+        /// <summary>
+        /// Gibt LogItem mit übereinstimmendem Datum zurück. Falls nicht vorhanden ist der Rückgabewert null
+        /// </summary>
+        /// <param name="date">Das zu übereinstimmende Datum</param>
+        /// <returns></returns>
+        public LogItem GetLogItemByDate(DateTime date)
+        {
+            foreach (LogItem item in this.LogList)
+            {
+                if (item.Date == date)
+                    return item;
+            }
+            return null;
+        }
     }
 }
