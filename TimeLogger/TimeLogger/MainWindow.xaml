@@ -13,6 +13,11 @@
                 <mui:Link DisplayName="" Source="/Pages/Home.xaml" />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
+        <mui:LinkGroup DisplayName="urlaub">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="" Source="/Pages/Urlaub.xaml" />
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
         <mui:LinkGroup DisplayName="Logfile">
             <mui:LinkGroup.Links>
                 <mui:Link DisplayName="" Source="/Pages/Logfile.xaml" />
@@ -20,7 +25,7 @@
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="about">
             <mui:LinkGroup.Links>
-                <mui:Link DisplayName="" Source="/Pages/about.xaml" />
+                <mui:Link DisplayName="" Source="/Pages/About.xaml" />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
     </mui:ModernWindow.MenuLinkGroups>
