@@ -7,14 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="284" d:DesignWidth="380" HorizontalAlignment="Left" VerticalAlignment="Top">
     <Grid Style="{StaticResource ContentRoot}" Margin="0,10,-8,-12" VerticalAlignment="Top" HorizontalAlignment="Left" Height="286" Width="388">
-        <RichTextBox x:Name="richtxtbox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Loaded="RichTextBox_Loaded" Margin="0,0,0,116">
+        <RichTextBox x:Name="richtxtbox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Loaded="RichTextBox_Loaded" Margin="0,0,0,130">
             <FlowDocument>
                 <Paragraph>
                     <Run Text=""/>
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
-        <Button x:Name="save_logfile" Content="Speichern" HorizontalAlignment="Left" Margin="268,175,0,0" VerticalAlignment="Top" Width="120" Height="34" FontSize="12" FontFamily="Verdana"/>
+        <Button x:Name="save_logfile" Content="Speichern" HorizontalAlignment="Left" Margin="268,171,0,0" VerticalAlignment="Top" Width="120" Height="34" FontSize="12" FontFamily="Verdana"/>
 
     </Grid>
 </UserControl>

@@ -8,10 +8,14 @@
         ContentSource="/Pages/Home.xaml" Width="450" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Verdana">
 
     <mui:ModernWindow.MenuLinkGroups>
-        <mui:LinkGroup DisplayName="Main">
+        <mui:LinkGroup DisplayName="Zeit eintragen">
             <mui:LinkGroup.Links>
-                <mui:Link DisplayName="Zeit eintragen" Source="/Pages/Home.xaml" />
-                <mui:Link DisplayName="log file" Source="/Pages/Logfile.xaml" />
+                <mui:Link DisplayName="" Source="/Pages/Home.xaml" />
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+        <mui:LinkGroup DisplayName="Logfile">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="" Source="/Pages/Logfile.xaml" />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="about">
