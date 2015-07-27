@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,11 +33,13 @@ namespace TimeLogger
 
         private TimeLoggerController()
         {
-            //TODO: Ausgliedern in eine ReadSettings Methode
-            this.ExportDirectory = System.Configuration.ConfigurationManager.AppSettings.Get("ExportPath");
-            this.ExportFileName = "log.txt";
             this.LogList = new List<LogItem>();
-            ReadLogFile();
+            //this.ReadSettings();
+            //HACK: Hard coded paths
+            this.ExportDirectory = @"C://users//"+Environment.UserName+@"//desktop//";
+            this.ExportFileName = "log.txt";
+
+            this.ReadLogFile();
         }
         /// <summary>
         /// Überschreibt das LogFile mit allen Einträgen der LogList
@@ -92,7 +95,7 @@ namespace TimeLogger
                     }
                 }
                 //legt neues LogItem an, wenn noch nicht vorhanden
-                if(!exists)
+                if (!exists)
                     this.LogList.Add(new LogItem(date, start, end));
 
                 //Updated das LogFile
@@ -133,6 +136,27 @@ namespace TimeLogger
                 {
                     this.Log(new LogItem(line));
                 }
+        }
+        /// <summary>
+        /// Liest die Einstellungen aus der app.config aus
+        /// </summary>
+        public void ReadSettings()
+        {
+            this.ExportDirectory = ConfigurationManager.AppSettings.Get("ExportPath");
+            if (this.ExportDirectory == null)
+            {
+                System.Windows.Forms.MessageBox.Show("Es wurde noch kein Exportpfad festgelegt.\nBitte wählen sie einen aus!");
+                var fbd = new System.Windows.Forms.FolderBrowserDialog();
+                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    this.ExportDirectory = fbd.SelectedPath;
+                    //TODO: neuen Pfad in die config schreiben
+                    //ConfigurationManager.AppSettings.Add("ExportPath", fbd.SelectedPath);
+                }
+
+            }
+            //this.ExportDirectory = String.Format(@"C://Users/{0}/Desktop/", System.Environment.UserName);
+            this.ExportFileName = "log.txt";
         }
         /// <summary>
         /// Errechnet die Gesamtzeitdifferenz für alle LogItems der LogList
