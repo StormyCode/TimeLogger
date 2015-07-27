@@ -24,7 +24,7 @@ namespace TimeLogger.Pages
         public Home()
         {
             InitializeComponent();
-            tlc = new TimeLoggerController(@"C://Users/" + Environment.UserName + "/desktop/");
+            tlc = new TimeLoggerController();
             this.datetimepicker.SelectedDate = DateTime.Today;
         }
 

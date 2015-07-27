@@ -24,7 +24,7 @@ namespace TimeLogger.Pages
         public BasicPage1()
         {
             InitializeComponent();
-            this.tlc = new TimeLoggerController(@"C://Users/" + Environment.UserName + "/desktop/");
+            this.tlc = new TimeLoggerController();
         }
 
         private void RichTextBox_Loaded(object sender, RoutedEventArgs e)

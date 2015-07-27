@@ -21,9 +21,9 @@ namespace TimeLogger
         /// </summary>
         public List<LogItem> LogList { get; private set; }
 
-        public TimeLoggerController(string path)
+        public TimeLoggerController()
         {
-            this.ExportDirectory = path;
+            this.ExportDirectory = System.Configuration.ConfigurationManager.AppSettings.Get("ExportPath");
             this.ExportFileName = "log.txt";
             this.LogList = new List<LogItem>();
             ReadLogFile();
