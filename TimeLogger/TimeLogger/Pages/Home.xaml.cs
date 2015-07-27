@@ -20,11 +20,9 @@ namespace TimeLogger.Pages
     /// </summary>
     public partial class Home : UserControl
     {
-        private TimeLoggerController tlc { get; set; }
         public Home()
         {
             InitializeComponent();
-            tlc = new TimeLoggerController(@"C://Users/" + Environment.UserName + "/desktop/");
             this.datetimepicker.SelectedDate = DateTime.Today;
         }
 
@@ -71,7 +69,7 @@ namespace TimeLogger.Pages
 
         private void datetimepicker_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            LogItem item = this.tlc.GetLogItemByDate((DateTime)this.datetimepicker.SelectedDate);
+            LogItem item = TimeLoggerController.GetInstance().GetLogItemByDate((DateTime)this.datetimepicker.SelectedDate);
             if (item != null)
             {
                 this.txtbox_start.Text = item.Start.ToString(@"hh\:mm");
@@ -86,7 +84,7 @@ namespace TimeLogger.Pages
 
         private void action_button_Click(object sender, RoutedEventArgs e)
         {
-            this.tlc.Log(new LogItem(String.Format("{0};{1};{2}", (DateTime)this.datetimepicker.SelectedDate, this.txtbox_start.Text, this.txtbox_end.Text)));
+            TimeLoggerController.GetInstance().Log(new LogItem(String.Format("{0};{1};{2}", (DateTime)this.datetimepicker.SelectedDate, this.txtbox_start.Text, this.txtbox_end.Text)));
             action_button.Foreground = Brushes.LightGreen;
         }
     }
