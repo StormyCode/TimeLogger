@@ -8,6 +8,8 @@ namespace TimeLogger
 {
     class TimeLoggerController
     {
+        private static TimeLoggerController Tlc { get; set; }
+
         /// <summary>
         /// Pfad, an dem Daten gespeichert werden
         /// </summary>
@@ -21,8 +23,16 @@ namespace TimeLogger
         /// </summary>
         public List<LogItem> LogList { get; private set; }
 
-        public TimeLoggerController()
+        public static TimeLoggerController GetInstance()
         {
+            if (Tlc == null)
+                Tlc = new TimeLoggerController();
+            return Tlc;
+        }
+
+        private TimeLoggerController()
+        {
+            //TODO: Ausgliedern in eine ReadSettings Methode
             this.ExportDirectory = System.Configuration.ConfigurationManager.AppSettings.Get("ExportPath");
             this.ExportFileName = "log.txt";
             this.LogList = new List<LogItem>();
