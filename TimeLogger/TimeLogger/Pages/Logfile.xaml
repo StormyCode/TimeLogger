@@ -19,7 +19,7 @@
             <Button x:Name="save_logfile" Content="Speichern" HorizontalAlignment="Left" Margin="250,171,0,0" VerticalAlignment="Top" Width="120" Height="34" FontSize="12" FontFamily="Verdana"/>
         <Grid Margin="0,171,206,81" Height="34">
             <Label Content="Gesamtdifferenz:" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Verdana" FontSize="14"/>
-            <Label Content="100" HorizontalAlignment="Left" Margin="137,0,0,0" VerticalAlignment="Center" FontFamily="Verdana" FontSize="14" />
+            <Label x:Name="lbl_gesamtdiff" Content="100" HorizontalAlignment="Left" Margin="137,0,0,0" VerticalAlignment="Center" FontFamily="Verdana" FontSize="14" />
         </Grid>
 
     </Grid>
