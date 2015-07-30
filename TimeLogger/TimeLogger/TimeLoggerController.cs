@@ -205,6 +205,9 @@ namespace TimeLogger
                     sw.WriteLine(item.ToString());
                 }
             }
+            //Rückmeldung MessageBox
+            System.Windows.Forms.MessageBox.Show("LogFile wurde erfolgreich exportiert!", "Export", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
+
         }
     }
 }
