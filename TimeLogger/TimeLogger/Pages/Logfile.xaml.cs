@@ -23,6 +23,7 @@ namespace TimeLogger.Pages
         public BasicPage1()
         {
             InitializeComponent();
+
         }
 
         private void RichTextBox_Loaded(object sender, RoutedEventArgs e)
@@ -37,6 +38,15 @@ namespace TimeLogger.Pages
                 txt += String.Format("{0}\t{1}\t{2}\t{3}", item.Date.ToShortDateString(), item.Start.ToString(@"hh\:mm"), item.End.ToString(@"hh\:mm"), item.GetDifference().ToString(@"hh\:mm"));
             }
             richtxtbox.AppendText(txt);
+
+            //Die GesamtDifferenz in das vorgesehene Label schreiben
+            this.lbl_gesamtdiff.Content = TimeLoggerController.GetInstance().GetLogSum();
+        }
+
+        private void save_logfile_Click(object sender, RoutedEventArgs e)
+        {
+            TimeLoggerController.GetInstance().SaveLogFileToFile();
+            System.Windows.Forms.MessageBox.Show("LogFile wurde erfolgreich exportiert!", "Export", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
         }
     }
 }

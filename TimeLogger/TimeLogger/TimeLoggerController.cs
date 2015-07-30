@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace TimeLogger
 {
@@ -23,14 +24,19 @@ namespace TimeLogger
         /// Liste aller LogItems
         /// </summary>
         public List<LogItem> LogList { get; private set; }
-
+        /// <summary>
+        /// Gibt eine TLC Instanz zurück
+        /// </summary>
+        /// <returns>TimeLoggerController Instanz</returns>
         public static TimeLoggerController GetInstance()
         {
             if (Tlc == null)
                 Tlc = new TimeLoggerController();
             return Tlc;
         }
-
+        /// <summary>
+        /// Initialisiert einen TLC
+        /// </summary>
         private TimeLoggerController()
         {
             this.LogList = new List<LogItem>();
@@ -184,6 +190,21 @@ namespace TimeLogger
                     return item;
             }
             return null;
+        }
+        /// <summary>
+        /// Erstellt eine .csv Datei, in der alle LogItems geschrieben werden.
+        /// Diese Datei wird am hinterlegten ExportDirectory gespeichert.
+        /// </summary>
+        public void SaveLogFileToFile()
+        {
+            using (StreamWriter sw = new StreamWriter(this.ExportDirectory + DateTime.Today.ToShortDateString() + @"_Export_Log.csv", false))
+            {
+                sw.WriteLine("Datum;Startzeit;Endzeit;Zeitdifferenz");
+                foreach (LogItem item in this.LogList)
+                {
+                    sw.WriteLine(item.ToString());
+                }
+            }
         }
     }
 }
