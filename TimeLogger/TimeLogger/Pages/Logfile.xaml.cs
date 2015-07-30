@@ -46,6 +46,7 @@ namespace TimeLogger.Pages
         private void save_logfile_Click(object sender, RoutedEventArgs e)
         {
             TimeLoggerController.GetInstance().SaveLogFileToFile();
+            System.Windows.Forms.MessageBox.Show("LogFile wurde erfolgreich exportiert!", "Export", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
         }
     }
 }
