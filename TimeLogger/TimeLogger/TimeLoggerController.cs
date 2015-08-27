@@ -44,9 +44,10 @@ namespace TimeLogger
         private TimeLoggerController()
         {
             this.LogList = new List<LogItem>();
-            //this.ReadSettings();
+            this.Settings = new Dictionary<string, string>();
+            this.ExportDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
+            this.ReadSettings();
             //HACK: Hard coded paths
-            this.ExportDirectory = @"C://users//"+Environment.UserName+@"//desktop//";
             this.ExportFileName = "log.txt";
 
             this.ReadLogFile();
@@ -152,14 +153,24 @@ namespace TimeLogger
         /// </summary>
         private void ReadSettings()
         {
-            
+            if (File.Exists(this.ExportDirectory + "/settings.csv"))
+            {
+                foreach (string line in File.ReadAllLines(this.ExportDirectory + "/settings.csv"))
+                {
+                    string[] properties = line.Replace(" ", "").Split(new char[] { ';' });
+                    if (this.Settings.ContainsKey(properties[0]))
+                        this.Settings[properties[0]] = properties[1];
+                    else
+                        this.Settings.Add(properties[0], properties[1]);
+                }
+            }
         }
         /// <summary>
         /// Methode, die alle aktuellen Einstellungen in eine Datei schreibt
         /// </summary>
         public void WriteSettings()
         {
-
+            
         }
         /// <summary>
         /// Errechnet die Gesamtzeitdifferenz für alle LogItems der LogList
