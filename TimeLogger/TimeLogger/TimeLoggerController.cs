@@ -150,23 +150,16 @@ namespace TimeLogger
         /// <summary>
         /// Liest die Einstellungen aus der app.config aus
         /// </summary>
-        public void ReadSettings()
+        private void ReadSettings()
         {
-            this.ExportDirectory = ConfigurationManager.AppSettings.Get("ExportPath");
-            if (this.ExportDirectory == null)
-            {
-                System.Windows.Forms.MessageBox.Show("Es wurde noch kein Exportpfad festgelegt.\nBitte wählen sie einen aus!");
-                var fbd = new System.Windows.Forms.FolderBrowserDialog();
-                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    this.ExportDirectory = fbd.SelectedPath;
-                    //TODO: neuen Pfad in die config schreiben
-                    //ConfigurationManager.AppSettings.Add("ExportPath", fbd.SelectedPath);
-                }
+            
+        }
+        /// <summary>
+        /// Methode, die alle aktuellen Einstellungen in eine Datei schreibt
+        /// </summary>
+        public void WriteSettings()
+        {
 
-            }
-            //this.ExportDirectory = String.Format(@"C://Users/{0}/Desktop/", System.Environment.UserName);
-            this.ExportFileName = "log.txt";
         }
         /// <summary>
         /// Errechnet die Gesamtzeitdifferenz für alle LogItems der LogList
