@@ -30,6 +30,7 @@ namespace TimeLogger
         private void ModernWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             TimeLoggerController.GetInstance().UpdateSetting("accent_color", AppearanceManager.Current.AccentColor.ToString());
+            
         }
     }
 }
