@@ -25,6 +25,10 @@ namespace TimeLogger
         /// </summary>
         public List<LogItem> LogList { get; private set; }
         /// <summary>
+        /// Beinhaltet ein Dictionary mit allen Einstellungen zum einer Tlc Instanz
+        /// </summary>
+        public Dictionary<string, string> Settings { get; private set; }
+        /// <summary>
         /// Gibt eine TLC Instanz zurück
         /// </summary>
         /// <returns>TimeLoggerController Instanz</returns>

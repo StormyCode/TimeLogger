@@ -85,7 +85,8 @@ namespace TimeLogger.Pages
         private void action_button_Click(object sender, RoutedEventArgs e)
         {
             TimeLoggerController.GetInstance().Log(new LogItem(String.Format("{0};{1};{2}", (DateTime)this.datetimepicker.SelectedDate, this.txtbox_start.Text, this.txtbox_end.Text)));
-            action_button.Foreground = Brushes.LightGreen;
+            //action_button.Foreground = Brushes.LightGreen;
+            System.Windows.Forms.MessageBox.Show("Eintrag erfolgreich gespeichert!", "Speichervorgang", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
         }
     }
 }
