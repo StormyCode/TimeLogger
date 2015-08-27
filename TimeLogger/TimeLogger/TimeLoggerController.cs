@@ -129,14 +129,14 @@ namespace TimeLogger
         /// Errechnet die Gesamtzeitdifferenz für alle LogItems der LogList
         /// </summary>
         /// <returns>TimeSpan, die die Gesamtzeitdifferenz aller LogItems der Loglist darstellt</returns>
-        public TimeSpan GetLogSum()
+        public string GetLogSum()
         {
             TimeSpan sum = new TimeSpan();
             foreach (LogItem item in this.LogList)
             {
-                sum.Add(item.GetDifference());
+                sum = sum.Add(item.GetDifference());
             }
-            return sum;
+            return String.Format("{0}T {1}h {2}m", sum.Days, sum.Hours, sum.Minutes);
         }
         /// <summary>
         /// Gibt LogItem mit übereinstimmendem Datum zurück. Falls nicht vorhanden ist der Rückgabewert null
@@ -213,6 +213,8 @@ namespace TimeLogger
         {
             if (this.Settings.ContainsKey("accent_color"))
                 AppearanceManager.Current.AccentColor = (Color)ColorConverter.ConvertFromString(this.Settings["accent_color"]);
+            if (this.Settings.ContainsKey("theme"))
+                AppearanceManager.Current.ThemeSource = new System.Uri(this.Settings["theme"]);
         }
         /// <summary>
         /// Methode, die das Updaten von Einstellungen regelt

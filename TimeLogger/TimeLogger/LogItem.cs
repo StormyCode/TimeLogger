@@ -63,6 +63,7 @@ namespace TimeLogger
         /// <returns>TimeSpan, der die Differenz zwischen Start- und Endzeit widerspiegelt</returns>
         public TimeSpan GetDifference()
         {
+            Console.WriteLine(this.End.Subtract(this.Start));
             return this.End.Subtract(this.Start);
         }
         /// <summary>
