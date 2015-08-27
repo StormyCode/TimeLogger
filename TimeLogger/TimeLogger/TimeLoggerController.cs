@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows.Media;
+using FirstFloor.ModernUI.Presentation;
 
 namespace TimeLogger
 {
@@ -20,38 +22,11 @@ namespace TimeLogger
         /// Name der Export-Datei
         /// </summary>
         public string ExportFileName { get; private set; }
+        #region All about LogList
         /// <summary>
         /// Liste aller LogItems
         /// </summary>
         public List<LogItem> LogList { get; private set; }
-        /// <summary>
-        /// Beinhaltet ein Dictionary mit allen Einstellungen zum einer Tlc Instanz
-        /// </summary>
-        public Dictionary<string, string> Settings { get; private set; }
-        /// <summary>
-        /// Gibt eine TLC Instanz zurück
-        /// </summary>
-        /// <returns>TimeLoggerController Instanz</returns>
-        public static TimeLoggerController GetInstance()
-        {
-            if (Tlc == null)
-                Tlc = new TimeLoggerController();
-            return Tlc;
-        }
-        /// <summary>
-        /// Initialisiert einen TLC
-        /// </summary>
-        private TimeLoggerController()
-        {
-            this.LogList = new List<LogItem>();
-            this.Settings = new Dictionary<string, string>();
-            this.ExportDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
-            this.ReadSettings();
-            //HACK: Hard coded paths
-            this.ExportFileName = "log.txt";
-
-            this.ReadLogFile();
-        }
         /// <summary>
         /// Überschreibt das LogFile mit allen Einträgen der LogList
         /// </summary>
@@ -149,37 +124,6 @@ namespace TimeLogger
                 }
         }
         /// <summary>
-        /// Liest die Einstellungen aus der app.config aus
-        /// </summary>
-        private void ReadSettings()
-        {
-            if (File.Exists(this.ExportDirectory + "/settings.csv"))
-            {
-                foreach (string line in File.ReadAllLines(this.ExportDirectory + "/settings.csv"))
-                {
-                    string[] properties = line.Replace(" ", "").Split(new char[] { ';' });
-                    if (this.Settings.ContainsKey(properties[0]))
-                        this.Settings[properties[0]] = properties[1];
-                    else
-                        this.Settings.Add(properties[0], properties[1]);
-                }
-            }
-        }
-        /// <summary>
-        /// Methode, die alle aktuellen Einstellungen in eine Datei schreibt
-        /// </summary>
-        public void WriteSettings()
-        {
-            if (!File.Exists(this.ExportDirectory + "/settings.csv"))
-                File.Create(this.ExportDirectory + "/settings.csv");
-            List<string> text = new List<string>();
-            foreach (KeyValuePair<string, string> pair in this.Settings)
-            {
-                text.Add(String.Format("{0};{1}", pair.Key, pair.Value));
-            }
-            File.WriteAllLines(this.ExportDirectory + "/settings.csv", text.ToArray());
-        }
-        /// <summary>
         /// Errechnet die Gesamtzeitdifferenz für alle LogItems der LogList
         /// </summary>
         /// <returns>TimeSpan, die die Gesamtzeitdifferenz aller LogItems der Loglist darstellt</returns>
@@ -221,5 +165,71 @@ namespace TimeLogger
                 }
             }
         }
+        #endregion
+        #region All about Settings
+        /// <summary>
+        /// Beinhaltet ein Dictionary mit allen Einstellungen zum einer Tlc Instanz
+        /// </summary>
+        public Dictionary<string, string> Settings { get; private set; }
+        /// <summary>
+        /// Liest die Einstellungen aus der app.config aus
+        /// </summary>
+        private void ReadSettings()
+        {
+            if (File.Exists(this.ExportDirectory + "/settings.csv"))
+            {
+                foreach (string line in File.ReadAllLines(this.ExportDirectory + "/settings.csv"))
+                {
+                    string[] properties = line.Replace(" ", "").Split(new char[] { ';' });
+                    if (this.Settings.ContainsKey(properties[0]))
+                        this.Settings[properties[0]] = properties[1];
+                    else
+                        this.Settings.Add(properties[0], properties[1]);
+                }
+            }
+        }
+        /// <summary>
+        /// Methode, die alle aktuellen Einstellungen in eine Datei schreibt
+        /// </summary>
+        public void WriteSettings()
+        {
+            if (!File.Exists(this.ExportDirectory + "/settings.csv"))
+                File.Create(this.ExportDirectory + "/settings.csv");
+            List<string> text = new List<string>();
+            foreach (KeyValuePair<string, string> pair in this.Settings)
+            {
+                text.Add(String.Format("{0};{1}", pair.Key, pair.Value));
+            }
+            File.WriteAllLines(this.ExportDirectory + "/settings.csv", text.ToArray());
+        }
+        #endregion
+        /// <summary>
+        /// Gibt eine TLC Instanz zurück
+        /// </summary>
+        /// <returns>TimeLoggerController Instanz</returns>
+        public static TimeLoggerController GetInstance()
+        {
+            if (Tlc == null)
+                Tlc = new TimeLoggerController();
+            return Tlc;
+        }
+        /// <summary>
+        /// Initialisiert einen TLC
+        /// </summary>
+        private TimeLoggerController()
+        {
+            this.LogList = new List<LogItem>();
+            this.Settings = new Dictionary<string, string>();
+            //AppearanceManager.Current.AccentColor = Colors.Green;
+            this.ExportDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
+            this.ReadSettings();
+            //HACK: Hard coded paths
+            this.ExportFileName = "log.txt";
+
+            this.ReadLogFile();
+        }
+        
+        
+        
     }
 }
