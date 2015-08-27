@@ -18,10 +18,12 @@ namespace TimeLogger
         /// Pfad, an dem Daten gespeichert werden
         /// </summary>
         public string ExportDirectory { get; private set; }
+
         /// <summary>
         /// Name der Export-Datei
         /// </summary>
         public string ExportFileName { get; private set; }
+
         #region All about LogList
         /// <summary>
         /// Liste aller LogItems
@@ -166,6 +168,7 @@ namespace TimeLogger
             }
         }
         #endregion
+
         #region All about Settings
         /// <summary>
         /// Beinhaltet ein Dictionary mit allen Einstellungen zum einer Tlc Instanz
@@ -207,9 +210,25 @@ namespace TimeLogger
         /// </summary>
         private void ApplySettings()
         {
-
+            if (this.Settings.ContainsKey("accent_color"))
+                AppearanceManager.Current.AccentColor = (Color)ColorConverter.ConvertFromString(this.Settings["accent_color"]);
+        }
+        /// <summary>
+        /// Methode, die das Updaten von Einstellungen regelt
+        /// </summary>
+        /// <param name="key">Name der Einstellung</param>
+        /// <param name="val">Wert der Einstellung</param>
+        public void UpdateSetting(string key, string val)
+        {
+            if (this.Settings.ContainsKey(key))
+                this.Settings[key] = val;
+            else
+                this.Settings.Add(key, val);
+            this.ApplySettings();
+            this.WriteSettings();
         }
         #endregion
+
         /// <summary>
         /// Gibt eine TLC Instanz zurück
         /// </summary>
@@ -220,6 +239,7 @@ namespace TimeLogger
                 Tlc = new TimeLoggerController();
             return Tlc;
         }
+
         /// <summary>
         /// Initialisiert einen TLC
         /// </summary>
