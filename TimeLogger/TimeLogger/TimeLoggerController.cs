@@ -170,7 +170,14 @@ namespace TimeLogger
         /// </summary>
         public void WriteSettings()
         {
-            
+            if (!File.Exists(this.ExportDirectory + "/settings.csv"))
+                File.Create(this.ExportDirectory + "/settings.csv");
+            List<string> text = new List<string>();
+            foreach (KeyValuePair<string, string> pair in this.Settings)
+            {
+                text.Add(String.Format("{0};{1}", pair.Key, pair.Value));
+            }
+            File.WriteAllLines(this.ExportDirectory + "/settings.csv", text.ToArray());
         }
         /// <summary>
         /// Errechnet die Gesamtzeitdifferenz für alle LogItems der LogList
