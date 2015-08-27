@@ -202,6 +202,13 @@ namespace TimeLogger
             }
             File.WriteAllLines(this.ExportDirectory + "/settings.csv", text.ToArray());
         }
+        /// <summary>
+        /// Methode, die alle Einstellungen wirksam macht
+        /// </summary>
+        private void ApplySettings()
+        {
+
+        }
         #endregion
         /// <summary>
         /// Gibt eine TLC Instanz zurück
