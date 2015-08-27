@@ -190,6 +190,7 @@ namespace TimeLogger
                         this.Settings.Add(properties[0], properties[1]);
                 }
             }
+            this.ApplySettings();
         }
         /// <summary>
         /// Methode, die alle aktuellen Einstellungen in eine Datei schreibt
