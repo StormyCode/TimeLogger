@@ -191,7 +191,7 @@ namespace TimeLogger
                         this.Settings.Add(properties[0], properties[1]);
                 }
             }
-            //Default Einstellunge setzen falls kein Wert vordefiniert
+            //Default Einstellunge setzen, falls kein Wert vordefiniert
             if (this.Settings.ContainsKey("duration_lunchtime") == false)
                 this.UpdateSetting("duration_lunchtime", "1");
             this.ApplySettings();
@@ -236,6 +236,21 @@ namespace TimeLogger
         }
         #endregion
 
+        #region All about Vacation
+        public Dictionary<DateTime, string> VacationList { get; private set; }
+
+        public int GetRemainingVacationDays()
+        {
+            //TODO: Julian - implement logic here
+            return 0;
+        }
+
+        public void UpdateVacationList(DateTime dt, string type)
+        {
+            //TODO: Julian - implement logic here
+        }
+        #endregion
+
         /// <summary>
         /// Gibt eine TLC Instanz zurück
         /// </summary>
@@ -254,6 +269,7 @@ namespace TimeLogger
         {
             this.LogList = new List<LogItem>();
             this.Settings = new Dictionary<string, string>();
+            this.VacationList = new Dictionary<DateTime, string>();
             //AppearanceManager.Current.AccentColor = Colors.Green;
             this.ExportDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
             this.ReadSettings();
