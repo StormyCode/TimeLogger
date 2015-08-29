@@ -181,6 +181,7 @@ namespace TimeLogger
         {
             if (File.Exists(this.ExportDirectory + "/settings.csv"))
             {
+                //bestehende Eintellungen einlesen
                 foreach (string line in File.ReadAllLines(this.ExportDirectory + "/settings.csv"))
                 {
                     string[] properties = line.Replace(" ", "").Split(new char[] { ';' });
@@ -190,6 +191,9 @@ namespace TimeLogger
                         this.Settings.Add(properties[0], properties[1]);
                 }
             }
+            //Default Einstellunge setzen falls kein Wert vordefiniert
+            if (this.Settings.ContainsKey("duration_lunchtime") == false)
+                this.UpdateSetting("duration_lunchtime", "1");
             this.ApplySettings();
         }
         /// <summary>
@@ -258,8 +262,8 @@ namespace TimeLogger
 
             this.ReadLogFile();
         }
-        
-        
-        
+
+
+
     }
 }
