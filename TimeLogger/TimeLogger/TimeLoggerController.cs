@@ -256,9 +256,12 @@ namespace TimeLogger
             return int.Parse(this.Settings["vacation_per_year"]) - this.VacationList.Where(x => x.Value == VacationType.Vacation).Count();
         }
 
-        public void UpdateVacationList(DateTime dt, string type)
+        public void UpdateVacationList(DateTime dt, VacationType type)
         {
-            //TODO: Julian - implement logic here
+            if (this.VacationList.ContainsKey(dt))
+                this.VacationList[dt] = type;
+            else
+                this.VacationList.Add(dt, type);
         }
         #endregion
 
