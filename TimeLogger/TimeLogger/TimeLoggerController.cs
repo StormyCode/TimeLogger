@@ -247,6 +247,10 @@ namespace TimeLogger
         public Dictionary<DateTime, VacationType> VacationList { get; private set; }
         public enum VacationType { Vacation, Flexitime }
 
+        /// <summary>
+        /// Methode, die die Anzahl der verbleibenden Urlaubstage zurückgibt.
+        /// </summary>
+        /// <returns>Anzahl der verbleibenden Urlaubstage</returns>
         public int GetRemainingVacationDays()
         {
             return int.Parse(this.Settings["vacation_per_year"]) - this.VacationList.Where(x => x.Value == VacationType.Vacation).Count();
