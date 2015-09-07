@@ -237,7 +237,8 @@ namespace TimeLogger
         #endregion
 
         #region All about Vacation
-        public Dictionary<DateTime, string> VacationList { get; private set; }
+        public Dictionary<DateTime, VacationType> VacationList { get; private set; }
+        private enum VacationType { Vacation, Flexitime }
 
         public int GetRemainingVacationDays()
         {
