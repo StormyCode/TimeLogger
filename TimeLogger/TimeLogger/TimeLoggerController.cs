@@ -249,7 +249,6 @@ namespace TimeLogger
 
         public int GetRemainingVacationDays()
         {
-            //TODO: Julian - implement logic here
             return int.Parse(this.Settings["vacation_per_year"]) - this.VacationList.Where(x => x.Value == VacationType.Vacation).Count();
         }
 
