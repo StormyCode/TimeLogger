@@ -194,6 +194,13 @@ namespace TimeLogger
             //Default Einstellunge setzen, falls kein Wert vordefiniert
             if (this.Settings.ContainsKey("duration_lunchtime") == false)
                 this.UpdateSetting("duration_lunchtime", "1");
+            if (this.Settings.ContainsKey("working_hours") == false)
+                this.UpdateSetting("working_hours", "7");
+            if (this.Settings.ContainsKey("vacation_per_year") == false)
+                this.UpdateSetting("vacation_per_year", "7");
+            if (this.Settings.ContainsKey("doubleclick_autoinsert_timespan") == false)
+                this.UpdateSetting("doubleclick_autoinsert_timespan", "7");
+
             this.ApplySettings();
         }
         /// <summary>
@@ -238,12 +245,12 @@ namespace TimeLogger
 
         #region All about Vacation
         public Dictionary<DateTime, VacationType> VacationList { get; private set; }
-        private enum VacationType { Vacation, Flexitime }
+        public enum VacationType { Vacation, Flexitime }
 
         public int GetRemainingVacationDays()
         {
             //TODO: Julian - implement logic here
-            return 0;
+            return int.Parse(this.Settings["vacation_per_year"]) - this.VacationList.Where(x => x.Value == VacationType.Vacation).Count();
         }
 
         public void UpdateVacationList(DateTime dt, string type)
@@ -270,7 +277,7 @@ namespace TimeLogger
         {
             this.LogList = new List<LogItem>();
             this.Settings = new Dictionary<string, string>();
-            this.VacationList = new Dictionary<DateTime, string>();
+            this.VacationList = new Dictionary<DateTime, VacationType>();
             //AppearanceManager.Current.AccentColor = Colors.Green;
             this.ExportDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
             this.ReadSettings();
