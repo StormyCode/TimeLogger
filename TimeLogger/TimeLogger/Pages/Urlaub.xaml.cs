@@ -23,6 +23,7 @@ namespace TimeLogger.Pages
         public Urlaub()
         {
             InitializeComponent();
+            this.datetimepicker_vacation.SelectedDate = DateTime.Today;
         }
 
         private void datetimepicker_vacation_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
@@ -41,10 +42,15 @@ namespace TimeLogger.Pages
                 default:
                     break;
             }
-            
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void vacation_type_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TimeLoggerController.VacationType type = TimeLoggerController.VacationType.Work;
             switch (this.vacation_type.SelectedIndex)
@@ -59,11 +65,6 @@ namespace TimeLogger.Pages
                     break;
             }
             TimeLoggerController.GetInstance().UpdateVacationList((DateTime)this.datetimepicker_vacation.SelectedDate, type);
-        }
-
-        private void vacation_type_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }
