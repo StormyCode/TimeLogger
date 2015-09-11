@@ -208,14 +208,23 @@ namespace TimeLogger
         /// </summary>
         public void WriteSettings()
         {
-            if (!File.Exists(this.ExportDirectory + "/settings.csv"))
-                File.Create(this.ExportDirectory + "/settings.csv");
-            List<string> text = new List<string>();
-            foreach (KeyValuePair<string, string> pair in this.Settings)
+            //Überprüft, ob Pfad und Datei gesetzt sind
+            if (this.ExportDirectory != null)
             {
-                text.Add(String.Format("{0};{1}", pair.Key, pair.Value));
+                string path = this.ExportDirectory + "/settings.csv";
+                //Überprüft, ob Pfad exisitert und legt diesen gegebenfalls an
+                if (!System.IO.Directory.Exists(this.ExportDirectory))
+                    System.IO.Directory.CreateDirectory(this.ExportDirectory);
+                //Legt einen StreamWriter fürs LogFile an (Modus = überschreiben)
+                using (System.IO.StreamWriter sw = new System.IO.StreamWriter(path, false))
+                {
+                    //Schreibt jedes LogItem ins LogFile
+                    foreach (KeyValuePair<string, string> item in this.Settings)
+                    {
+                        sw.WriteLine(String.Format("{0};{1}", item.Key, item.Value));
+                    }
+                }
             }
-            File.WriteAllLines(this.ExportDirectory + "/settings.csv", text.ToArray());
         }
         /// <summary>
         /// Methode, die alle Einstellungen wirksam macht
@@ -298,7 +307,12 @@ namespace TimeLogger
         /// <returns>Anzahl der verbleibenden Urlaubstage</returns>
         public int GetRemainingVacationDays()
         {
-            return int.Parse(this.Settings["vacation_per_year"]) - this.VacationList.Where(x => x.Value == VacationType.Vacation).Count();
+            return int.Parse(this.Settings["vacation_per_year"]) - this.CountVacationType(VacationType.Vacation);
+        }
+
+        public int CountVacationType(VacationType type)
+        {
+            return this.VacationList.Where(x => x.Value == type).Count();
         }
 
         public void UpdateVacationList(DateTime dt, VacationType type)

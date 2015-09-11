@@ -65,6 +65,7 @@ namespace TimeLogger.Pages
                     break;
             }
             TimeLoggerController.GetInstance().UpdateVacationList((DateTime)this.datetimepicker_vacation.SelectedDate, type);
+            this.lbl_resturlaub.Content = TimeLoggerController.GetInstance().GetRemainingVacationDays() + "/" + TimeLoggerController.GetInstance().Settings["vacation_per_year"];
         }
     }
 }
