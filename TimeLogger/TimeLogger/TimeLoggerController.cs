@@ -197,9 +197,9 @@ namespace TimeLogger
             if (this.Settings.ContainsKey("working_hours") == false)
                 this.UpdateSetting("working_hours", "7");
             if (this.Settings.ContainsKey("vacation_per_year") == false)
-                this.UpdateSetting("vacation_per_year", "7");
+                this.UpdateSetting("vacation_per_year", "30");
             if (this.Settings.ContainsKey("doubleclick_autoinsert_timespan") == false)
-                this.UpdateSetting("doubleclick_autoinsert_timespan", "7");
+                this.UpdateSetting("doubleclick_autoinsert_timespan", "5");
 
             this.ApplySettings();
         }
@@ -263,6 +263,7 @@ namespace TimeLogger
             else
                 this.VacationList.Add(dt, type);
         }
+
         #endregion
 
         /// <summary>
