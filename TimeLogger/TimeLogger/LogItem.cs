@@ -63,8 +63,8 @@ namespace TimeLogger
         /// <returns>TimeSpan, der die Differenz zwischen Start- und Endzeit widerspiegelt</returns>
         public TimeSpan GetDifference()
         {
-            Console.WriteLine(this.End.Subtract(this.Start));
-            return this.End.Subtract(this.Start);
+            int lunchtimeHours = int.Parse(TimeLoggerController.GetInstance().Settings["duration_lunchtime"]);
+            return (this.End.Subtract(this.Start)).Subtract(new TimeSpan(lunchtimeHours, 0, 0));
         }
         /// <summary>
         /// Statische Methode, die ermittelt, ob das Datum und die Zeitangaben zulässig sind

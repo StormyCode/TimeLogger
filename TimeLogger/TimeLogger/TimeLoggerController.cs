@@ -181,6 +181,7 @@ namespace TimeLogger
         {
             if (File.Exists(this.ExportDirectory + "/settings.csv"))
             {
+                //bestehende Eintellungen einlesen
                 foreach (string line in File.ReadAllLines(this.ExportDirectory + "/settings.csv"))
                 {
                     string[] properties = line.Replace(" ", "").Split(new char[] { ';' });
@@ -190,6 +191,16 @@ namespace TimeLogger
                         this.Settings.Add(properties[0], properties[1]);
                 }
             }
+            //Default Einstellunge setzen, falls kein Wert vordefiniert
+            if (this.Settings.ContainsKey("duration_lunchtime") == false)
+                this.UpdateSetting("duration_lunchtime", "1");
+            if (this.Settings.ContainsKey("working_hours") == false)
+                this.UpdateSetting("working_hours", "7");
+            if (this.Settings.ContainsKey("vacation_per_year") == false)
+                this.UpdateSetting("vacation_per_year", "7");
+            if (this.Settings.ContainsKey("doubleclick_autoinsert_timespan") == false)
+                this.UpdateSetting("doubleclick_autoinsert_timespan", "7");
+
             this.ApplySettings();
         }
         /// <summary>
@@ -232,6 +243,28 @@ namespace TimeLogger
         }
         #endregion
 
+        #region All about Vacation
+        public Dictionary<DateTime, VacationType> VacationList { get; private set; }
+        public enum VacationType { Vacation, Flexitime }
+
+        /// <summary>
+        /// Methode, die die Anzahl der verbleibenden Urlaubstage zurückgibt.
+        /// </summary>
+        /// <returns>Anzahl der verbleibenden Urlaubstage</returns>
+        public int GetRemainingVacationDays()
+        {
+            return int.Parse(this.Settings["vacation_per_year"]) - this.VacationList.Where(x => x.Value == VacationType.Vacation).Count();
+        }
+
+        public void UpdateVacationList(DateTime dt, VacationType type)
+        {
+            if (this.VacationList.ContainsKey(dt))
+                this.VacationList[dt] = type;
+            else
+                this.VacationList.Add(dt, type);
+        }
+        #endregion
+
         /// <summary>
         /// Gibt eine TLC Instanz zurück
         /// </summary>
@@ -250,6 +283,7 @@ namespace TimeLogger
         {
             this.LogList = new List<LogItem>();
             this.Settings = new Dictionary<string, string>();
+            this.VacationList = new Dictionary<DateTime, VacationType>();
             //AppearanceManager.Current.AccentColor = Colors.Green;
             this.ExportDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
             this.ReadSettings();
@@ -258,8 +292,8 @@ namespace TimeLogger
 
             this.ReadLogFile();
         }
-        
-        
-        
+
+
+
     }
 }
