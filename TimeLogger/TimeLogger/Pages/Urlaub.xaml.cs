@@ -48,5 +48,10 @@ namespace TimeLogger.Pages
         {
 
         }
+
+        private void vacation_type_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
