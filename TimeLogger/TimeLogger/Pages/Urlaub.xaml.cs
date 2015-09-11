@@ -29,5 +29,10 @@ namespace TimeLogger.Pages
         {
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
