@@ -91,12 +91,12 @@ namespace TimeLogger.Pages
 
         private void txtbox_start_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            this.txtbox_start.Text = DateTime.Now.AddMinutes(-int.Parse(TimeLoggerController.GetInstance().Settings["doubleclick_autoinsert_timespan"])).ToShortTimeString();
         }
 
         private void txtbox_end_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            this.txtbox_end.Text = DateTime.Now.AddMinutes(int.Parse(TimeLoggerController.GetInstance().Settings["doubleclick_autoinsert_timespan"])).ToShortTimeString();
         }
     }
 }
