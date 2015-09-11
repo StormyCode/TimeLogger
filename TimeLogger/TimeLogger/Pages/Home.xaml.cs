@@ -88,5 +88,15 @@ namespace TimeLogger.Pages
             //action_button.Foreground = Brushes.LightGreen;
             System.Windows.Forms.MessageBox.Show("Eintrag erfolgreich gespeichert!", "Speichervorgang", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
         }
+
+        private void txtbox_start_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void txtbox_end_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }
