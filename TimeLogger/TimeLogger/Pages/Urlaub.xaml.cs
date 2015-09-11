@@ -46,7 +46,19 @@ namespace TimeLogger.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            TimeLoggerController.VacationType type = TimeLoggerController.VacationType.Work;
+            switch (this.vacation_type.SelectedIndex)
+            {
+                case 0:
+                    type = TimeLoggerController.VacationType.Vacation;
+                    break;
+                case 1:
+                    type = TimeLoggerController.VacationType.Flexitime;
+                    break;
+                default:
+                    break;
+            }
+            TimeLoggerController.GetInstance().UpdateVacationList((DateTime)this.datetimepicker_vacation.SelectedDate, type);
         }
     }
 }

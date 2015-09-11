@@ -247,14 +247,23 @@ namespace TimeLogger
         public Dictionary<DateTime, VacationType> VacationList { get; private set; }
         public enum VacationType { Vacation, Flexitime, Work }
 
-        private void SaveVacationListToFile()
+        private void UpdateVacationLogFile()
         {
-            using (StreamWriter sw = new StreamWriter(this.ExportDirectory + DateTime.Today.ToShortDateString() + @"vacationlog.txt", true))
+            //Überprüft, ob Pfad und Datei gesetzt sind
+            if (this.ExportDirectory != null)
             {
-                foreach (KeyValuePair<DateTime, VacationType> item in this.VacationList)
+                string path = this.ExportDirectory + "/vacationlog.txt";
+                //Überprüft, ob Pfad exisitert und legt diesen gegebenfalls an
+                if (!System.IO.Directory.Exists(this.ExportDirectory))
+                    System.IO.Directory.CreateDirectory(this.ExportDirectory);
+                //Legt einen StreamWriter fürs LogFile an (Modus = überschreiben)
+                using (System.IO.StreamWriter sw = new System.IO.StreamWriter(path, false))
                 {
-                    if (item.Value != VacationType.Work)
-                        sw.WriteLine(String.Format("{0};{1}", item.Key.ToShortDateString(), item.Value.ToString()));
+                    //Schreibt jedes LogItem ins LogFile
+                    foreach (KeyValuePair<DateTime, VacationType> pair in this.VacationList)
+                    {
+                        sw.WriteLine(String.Format("{0};{1}", pair.Key.ToShortDateString(), pair.Value.ToString()));
+                    }
                 }
             }
         }
@@ -263,7 +272,7 @@ namespace TimeLogger
         {
             if (System.IO.File.Exists(String.Format("{0}/vacationlog.txt", this.ExportDirectory)))
             {
-                foreach (string line in System.IO.File.ReadAllLines(String.Format("{0}/{1}", this.ExportDirectory, this.ExportFileName)))
+                foreach (string line in System.IO.File.ReadAllLines(String.Format("{0}/vacationlog.txt", this.ExportDirectory)))
                 {
                     string[] data = line.Split(new char[] { ';' });
                     DateTime date = new DateTime();
@@ -279,7 +288,6 @@ namespace TimeLogger
                         default:
                             break;
                     }
-                    this.Log(new LogItem(line));
                 }
             }
         }
@@ -300,6 +308,8 @@ namespace TimeLogger
             else
                 this.VacationList.Add(dt, type);
             this.VacationList = this.VacationList.Where(x => x.Value != VacationType.Work).ToDictionary(x => x.Key, x => x.Value);
+
+            this.UpdateVacationLogFile();
         }
 
         public VacationType GetDateVacationType(DateTime dt)
@@ -328,13 +338,13 @@ namespace TimeLogger
             this.LogList = new List<LogItem>();
             this.Settings = new Dictionary<string, string>();
             this.VacationList = new Dictionary<DateTime, VacationType>();
-            //AppearanceManager.Current.AccentColor = Colors.Green;
             this.ExportDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
             this.ReadSettings();
             //HACK: Hard coded paths
             this.ExportFileName = "log.txt";
 
             this.ReadLogFile();
+            this.ReadVacationLogFile();
         }
 
 
