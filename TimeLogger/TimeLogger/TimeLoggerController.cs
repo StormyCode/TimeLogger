@@ -245,7 +245,7 @@ namespace TimeLogger
 
         #region All about Vacation
         public Dictionary<DateTime, VacationType> VacationList { get; private set; }
-        public enum VacationType { Vacation, Flexitime }
+        public enum VacationType { Vacation, Flexitime, Work }
 
         /// <summary>
         /// Methode, die die Anzahl der verbleibenden Urlaubstage zurückgibt.
@@ -262,6 +262,12 @@ namespace TimeLogger
                 this.VacationList[dt] = type;
             else
                 this.VacationList.Add(dt, type);
+            this.VacationList = this.VacationList.Where(x => x.Value != VacationType.Work).ToDictionary(x => x.Key, x => x.Value );
+        }
+
+        public VacationType GetDateVacationType(DateTime dt)
+        {
+            return this.VacationList.ContainsKey(dt) ? this.VacationList[dt] : VacationType.Work;
         }
 
         #endregion
