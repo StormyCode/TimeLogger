@@ -22,8 +22,14 @@
                 <AccessText TextWrapping="Wrap" Text="Verbleibende Urlaubstage:" Height="36"/>
             </Label.Content>
         </Label>
+        <Label HorizontalAlignment="Left" Margin="231,100,0,0" VerticalAlignment="Top" FontSize="14" Width="97" Height="36" FontFamily="Verdana" >
+            <Label.Content>
+                <AccessText TextWrapping="Wrap" Text="Genommene Gleittage:" Height="36"/>
+            </Label.Content>
+        </Label>
         <Label Content="Tag auswählen:" HorizontalAlignment="Left" Margin="231,5,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="14" />
         <Label x:Name="lbl_resturlaub" Content="" HorizontalAlignment="Left" Margin="326,167,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="14" HorizontalContentAlignment="Right" Width="25"/>
+        <Label x:Name="lbl_gleittage" Content="" HorizontalAlignment="Left" Margin="326,119,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="14" HorizontalContentAlignment="Right" Width="25"/>
 
     </Grid>
 </UserControl>
