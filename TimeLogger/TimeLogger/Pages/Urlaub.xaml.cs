@@ -60,5 +60,10 @@ namespace TimeLogger.Pages
             }
             TimeLoggerController.GetInstance().UpdateVacationList((DateTime)this.datetimepicker_vacation.SelectedDate, type);
         }
+
+        private void vacation_type_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
