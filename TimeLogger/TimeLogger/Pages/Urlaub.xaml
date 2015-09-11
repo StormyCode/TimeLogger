@@ -15,9 +15,10 @@
                 <Calendar x:Name="datetimepicker_vacation" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             </StackPanel>
         </ScrollViewer>
-        <ComboBox x:Name="vacation_type" HorizontalAlignment="Left" Margin="231,51,0,0" VerticalAlignment="Top" Width="120">
-            <ComboBoxItem Content="Vacation" FontFamily="Verdana"/>
-            <ComboBoxItem Content="Flexitime" FontFamily="Verdana"/>
+        <ComboBox x:Name="vacation_type" Margin="231,43,0,0" VerticalAlignment="Top" Width="120" FontFamily="Verdana" HorizontalAlignment="Left">
+            <ComboBoxItem Content="Urlaub"/>
+            <ComboBoxItem Content="Gleittag"/>
+            <ComboBoxItem Content="Arbeitstag" VerticalContentAlignment="Center"/>
         </ComboBox>
         <Button Content="Button" HorizontalAlignment="Left" Margin="231,93,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Label" HorizontalAlignment="Left" Margin="231,151,0,0" VerticalAlignment="Top"/>
