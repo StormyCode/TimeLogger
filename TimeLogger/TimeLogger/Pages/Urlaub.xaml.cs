@@ -24,5 +24,10 @@ namespace TimeLogger.Pages
         {
             InitializeComponent();
         }
+
+        private void datetimepicker_vacation_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
