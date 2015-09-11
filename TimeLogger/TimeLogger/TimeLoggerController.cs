@@ -160,7 +160,7 @@ namespace TimeLogger
         {
             using (StreamWriter sw = new StreamWriter(this.ExportDirectory + DateTime.Today.ToShortDateString() + @"_Export_Log.csv", false))
             {
-                sw.WriteLine("Datum;Startzeit;Endzeit;Zeitdifferenz");
+                //sw.WriteLine("Datum;Startzeit;Endzeit;Zeitdifferenz");
                 foreach (LogItem item in this.LogList)
                 {
                     sw.WriteLine(item.ToString());
@@ -247,6 +247,43 @@ namespace TimeLogger
         public Dictionary<DateTime, VacationType> VacationList { get; private set; }
         public enum VacationType { Vacation, Flexitime, Work }
 
+        private void SaveVacationListToFile()
+        {
+            using (StreamWriter sw = new StreamWriter(this.ExportDirectory + DateTime.Today.ToShortDateString() + @"vacationlog.txt", true))
+            {
+                foreach (KeyValuePair<DateTime, VacationType> item in this.VacationList)
+                {
+                    if (item.Value != VacationType.Work)
+                        sw.WriteLine(String.Format("{0};{1}", item.Key.ToShortDateString(), item.Value.ToString()));
+                }
+            }
+        }
+
+        public void ReadVacationLogFile()
+        {
+            if (System.IO.File.Exists(String.Format("{0}/vacationlog.txt", this.ExportDirectory)))
+            {
+                foreach (string line in System.IO.File.ReadAllLines(String.Format("{0}/{1}", this.ExportDirectory, this.ExportFileName)))
+                {
+                    string[] data = line.Split(new char[] { ';' });
+                    DateTime date = new DateTime();
+                    DateTime.TryParse(data[0], out date);
+                    switch (data[1])
+                    {
+                        case "Vacation":
+                            this.VacationList.Add(date, VacationType.Vacation);
+                            break;
+                        case "Flexitime":
+                            this.VacationList.Add(date, VacationType.Flexitime);
+                            break;
+                        default:
+                            break;
+                    }
+                    this.Log(new LogItem(line));
+                }
+            }
+        }
+
         /// <summary>
         /// Methode, die die Anzahl der verbleibenden Urlaubstage zurückgibt.
         /// </summary>
@@ -262,7 +299,7 @@ namespace TimeLogger
                 this.VacationList[dt] = type;
             else
                 this.VacationList.Add(dt, type);
-            this.VacationList = this.VacationList.Where(x => x.Value != VacationType.Work).ToDictionary(x => x.Key, x => x.Value );
+            this.VacationList = this.VacationList.Where(x => x.Value != VacationType.Work).ToDictionary(x => x.Key, x => x.Value);
         }
 
         public VacationType GetDateVacationType(DateTime dt)
