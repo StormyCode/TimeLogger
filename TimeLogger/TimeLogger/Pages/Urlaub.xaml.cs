@@ -45,11 +45,6 @@ namespace TimeLogger.Pages
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void vacation_type_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TimeLoggerController.VacationType type = TimeLoggerController.VacationType.Work;
