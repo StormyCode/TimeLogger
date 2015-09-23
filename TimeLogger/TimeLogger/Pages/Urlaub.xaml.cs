@@ -28,19 +28,24 @@ namespace TimeLogger.Pages
 
         private void datetimepicker_vacation_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch (TimeLoggerController.GetInstance().GetDateVacationType((DateTime)this.datetimepicker_vacation.SelectedDate))
+            if (((DateTime)this.datetimepicker_vacation.SelectedDate).DayOfWeek == DayOfWeek.Saturday || ((DateTime)this.datetimepicker_vacation.SelectedDate).DayOfWeek == DayOfWeek.Sunday)
+                this.vacation_type.SelectedIndex = -1;
+            else
             {
-                case TimeLoggerController.VacationType.Vacation:
-                    this.vacation_type.SelectedIndex = 0;
-                    break;
-                case TimeLoggerController.VacationType.Flexitime:
-                    this.vacation_type.SelectedIndex = 1;
-                    break;
-                case TimeLoggerController.VacationType.Work:
-                    this.vacation_type.SelectedIndex = 2;
-                    break;
-                default:
-                    break;
+                switch (TimeLoggerController.GetInstance().GetDateVacationType((DateTime)this.datetimepicker_vacation.SelectedDate))
+                {
+                    case TimeLoggerController.VacationType.Vacation:
+                        this.vacation_type.SelectedIndex = 0;
+                        break;
+                    case TimeLoggerController.VacationType.Flexitime:
+                        this.vacation_type.SelectedIndex = 1;
+                        break;
+                    case TimeLoggerController.VacationType.Work:
+                        this.vacation_type.SelectedIndex = 2;
+                        break;
+                    default:
+                        break;
+                }
             }
 
         }
