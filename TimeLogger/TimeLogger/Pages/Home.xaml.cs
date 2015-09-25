@@ -86,7 +86,11 @@ namespace TimeLogger.Pages
         {
             TimeLoggerController.GetInstance().Log(new LogItem(String.Format("{0};{1};{2}", (DateTime)this.datetimepicker.SelectedDate, this.txtbox_start.Text, this.txtbox_end.Text)));
             //action_button.Foreground = Brushes.LightGreen;
-            System.Windows.Forms.MessageBox.Show("Eintrag erfolgreich gespeichert!", "Speichervorgang", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
+
+            FirstFloor.ModernUI.Windows.Controls.ModernDialog dialog = new FirstFloor.ModernUI.Windows.Controls.ModernDialog();
+            dialog.Content = "Eintrag erflogreich gespeichert!";
+            dialog.Title = "Speichervorgang";
+            dialog.ShowDialog();
         }
 
         private void txtbox_start_MouseDoubleClick(object sender, MouseButtonEventArgs e)
