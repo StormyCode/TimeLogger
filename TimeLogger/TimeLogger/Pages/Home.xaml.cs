@@ -91,6 +91,7 @@ namespace TimeLogger.Pages
             dialog.Content = "Eintrag erflogreich gespeichert!";
             dialog.Title = "Speichervorgang";
             dialog.ShowDialog();
+            
         }
 
         private void txtbox_start_MouseDoubleClick(object sender, MouseButtonEventArgs e)
