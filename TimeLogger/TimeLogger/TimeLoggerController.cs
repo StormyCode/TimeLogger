@@ -124,6 +124,19 @@ namespace TimeLogger
                 {
                     this.Log(new LogItem(line));
                 }
+            else
+            {
+                //Es war noch kein LogFile vorhanden --> nach Initial-Gleitzeit fragen
+                TimeSpan t;
+                int val;
+                int.TryParse(Microsoft.VisualBasic.Interaction.InputBox("Prompt", "Title", "Default", 0, 0), out val);
+                if(val != null)
+                {
+                    t = new TimeSpan(val + int.Parse(this.Settings["working_hours"]), 0, 0);
+                    this.Log(new LogItem(new DateTime(1999, 9, 9), new TimeSpan(0, 0, 0), t));
+                }
+                
+            }
         }
         /// <summary>
         /// Errechnet die Gesamtzeitdifferenz für alle LogItems der LogList
@@ -134,7 +147,7 @@ namespace TimeLogger
             TimeSpan sum = new TimeSpan();
             foreach (LogItem item in this.LogList)
             {
-                sum = sum.Add(item.GetDifference().Subtract(new TimeSpan(int.Parse(TimeLoggerController.GetInstance().Settings["working_hours"]),0,0)).Subtract(new TimeSpan(this.CountVacationType(VacationType.Flexitime)*int.Parse(this.Settings["working_hours"]) ,0,0)));
+                sum = sum.Add(item.GetDifference().Subtract(new TimeSpan(int.Parse(TimeLoggerController.GetInstance().Settings["working_hours"]), 0, 0)).Subtract(new TimeSpan(this.CountVacationType(VacationType.Flexitime) * int.Parse(this.Settings["working_hours"]), 0, 0)));
             }
             return String.Format("{0}T {1}h {2}m", sum.Days, sum.Hours, sum.Minutes);
         }
