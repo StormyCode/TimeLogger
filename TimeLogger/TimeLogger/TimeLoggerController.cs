@@ -127,9 +127,14 @@ namespace TimeLogger
             else
             {
                 //Es war noch kein LogFile vorhanden --> nach Initial-Gleitzeit fragen
-
-                int val = int.Parse(CustomDialog.ShowInputDialog("Gleitzeit", "Bitte aktuelle Gleitzeit eingeben", "0"));
-
+                TimeSpan t;
+                int val;
+                int.TryParse(CustomDialog.ShowInputDialog("Gleitzeit", "Bitte aktuelle Gleitzeit eingeben", "0"), out val);
+                if (val != null && val != 0)
+                {
+                    t = new TimeSpan(int.Parse(this.Settings["working_hours"]) + 1, val, 0);
+                    this.Log(new LogItem(new DateTime(1999, 9, 9), new TimeSpan(0, 0, 0), t));
+                }
 
                 //TimeSpan t;
                 //int val;

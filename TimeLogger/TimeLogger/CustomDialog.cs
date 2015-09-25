@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace TimeLogger
 {
@@ -18,19 +19,22 @@ namespace TimeLogger
         {
             // create the dialog content
             TextBox content = new TextBox()
-                {
-                    VerticalAlignment = VerticalAlignment.Bottom
-                };
+            {
+                VerticalAlignment = VerticalAlignment.Bottom,
+                TabIndex = 0
+            };
             content.Text = initialInput;
             Label lbl = new Label()
             {
                 Content = initialText,
-                VerticalAlignment = VerticalAlignment.Top
+                VerticalAlignment = VerticalAlignment.Top,
+                Focusable = false
             };
             Grid g = new Grid()
-                {
-                    Height = 50
-                };
+            {
+                Height = 50,
+                Focusable = false
+            };
             g.Children.Add(content);
             g.Children.Add(lbl);
             // create the ModernUI dialog component with the buttons
@@ -44,6 +48,8 @@ namespace TimeLogger
                 MaxHeight = 480,
                 MaxWidth = 640,
             };
+            FocusManager.SetFocusedElement(g, content);
+            content.SelectAll();
             dlg.Buttons = new Button[] { dlg.OkButton, dlg.CancelButton };
 
             // register the event to retrieve the result of the dialog box 
