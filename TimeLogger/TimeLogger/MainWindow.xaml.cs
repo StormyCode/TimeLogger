@@ -25,6 +25,7 @@ namespace TimeLogger
         public MainWindow()
         {
             InitializeComponent();
+            TimeLoggerController.GetInstance();
         }
 
         private void ModernWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
