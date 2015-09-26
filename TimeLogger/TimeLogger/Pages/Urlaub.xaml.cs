@@ -24,6 +24,10 @@ namespace TimeLogger.Pages
         {
             InitializeComponent();
             this.datetimepicker_vacation.SelectedDate = DateTime.Today;
+            if (TimeLoggerController.GetInstance().GetRemainingVacationDays() > 0)
+                this.vacation_type.Items.Add(new ComboBoxItem() { Content = "Urlaub" });
+            this.vacation_type.Items.Add(new ComboBoxItem() { Content = "Gleittag" });
+            this.vacation_type.Items.Add(new ComboBoxItem() { Content = "Arbeitstag" });
         }
 
         private void datetimepicker_vacation_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
