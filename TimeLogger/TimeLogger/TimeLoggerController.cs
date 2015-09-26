@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Media;
 using FirstFloor.ModernUI.Presentation;
+using ModernUINavigation_Test.Pages.Settings;
 
 namespace TimeLogger
 {
@@ -222,6 +223,8 @@ namespace TimeLogger
                 this.UpdateSetting("vacation_per_year", "30");
             if (this.Settings.ContainsKey("doubleclick_autoinsert_timespan") == false)
                 this.UpdateSetting("doubleclick_autoinsert_timespan", "5");
+            if (this.Settings.ContainsKey("theme_color") == false)
+                this.UpdateSetting("theme_color", "dark");
 
             this.ApplySettings();
         }
@@ -255,8 +258,13 @@ namespace TimeLogger
         {
             if (this.Settings.ContainsKey("accent_color"))
                 AppearanceManager.Current.AccentColor = (Color)ColorConverter.ConvertFromString(this.Settings["accent_color"]);
-            if (this.Settings.ContainsKey("theme"))
-                AppearanceManager.Current.ThemeSource = new System.Uri(this.Settings["theme"]);
+            if (this.Settings.ContainsKey("theme_color"))
+            {
+                if (this.Settings["theme_color"] == "dark")
+                    AppearanceManager.Current.ThemeSource = AppearanceManager.DarkThemeSource;
+                else
+                    AppearanceManager.Current.ThemeSource = AppearanceManager.LightThemeSource;
+            }
         }
         /// <summary>
         /// Methode, die das Updaten von Einstellungen regelt
