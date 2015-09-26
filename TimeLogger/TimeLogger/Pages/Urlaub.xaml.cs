@@ -28,7 +28,9 @@ namespace TimeLogger.Pages
 
         private void datetimepicker_vacation_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (((DateTime)this.datetimepicker_vacation.SelectedDate).DayOfWeek == DayOfWeek.Saturday || ((DateTime)this.datetimepicker_vacation.SelectedDate).DayOfWeek == DayOfWeek.Sunday)
+            if (TimeLoggerController.GetInstance().GetDateVacationType((DateTime)this.datetimepicker_vacation.SelectedDate) == TimeLoggerController.VacationType.Work
+                && (((DateTime)this.datetimepicker_vacation.SelectedDate).DayOfWeek == DayOfWeek.Saturday
+                    || ((DateTime)this.datetimepicker_vacation.SelectedDate).DayOfWeek == DayOfWeek.Sunday))
                 this.vacation_type.SelectedIndex = -1;
             else
             {
