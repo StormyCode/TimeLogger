@@ -26,6 +26,7 @@ namespace ModernUINavigation_Test.Pages.Settings
 
             // create and assign the appearance view model
             this.DataContext = new AppearanceViewModel();
+            this.cbb_theme.SelectedIndex = (TimeLogger.TimeLoggerController.GetInstance().Settings["theme_color"] == "dark") ? 0 : 1;
         }
     }
 }

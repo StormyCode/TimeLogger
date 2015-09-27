@@ -85,6 +85,9 @@ namespace ModernUINavigation_Test.Pages.Settings
         {
             if (e.PropertyName == "ThemeSource" || e.PropertyName == "AccentColor")
             {
+                if (e.PropertyName == "ThemeSource" 
+                    && TimeLogger.TimeLoggerController.GetInstance().Settings["theme_color"] != this.SelectedTheme.DisplayName.ToLower())
+                    TimeLogger.TimeLoggerController.GetInstance().UpdateSetting("theme_color", this.SelectedTheme.DisplayName.ToLower());
                 SyncThemeAndColor();
             }
         }
