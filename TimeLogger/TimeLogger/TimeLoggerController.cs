@@ -284,7 +284,7 @@ namespace TimeLogger
 
         #region All about Vacation
         public Dictionary<DateTime, VacationType> VacationList { get; private set; }
-        public enum VacationType { Vacation, Flexitime, Work }
+        public enum VacationType { Vacation, Flexitime, Work, HomeOffice }
 
         private void UpdateVacationLogFile()
         {
@@ -323,6 +323,9 @@ namespace TimeLogger
                             break;
                         case "Flexitime":
                             this.VacationList.Add(date, VacationType.Flexitime);
+                            break;
+                        case "HomeOffice":
+                            this.VacationList.Add(date, VacationType.HomeOffice);
                             break;
                         default:
                             break;

@@ -28,6 +28,7 @@ namespace TimeLogger.Pages
                 this.vacation_type.Items.Add(new ComboBoxItem() { Content = "Urlaub" });
             this.vacation_type.Items.Add(new ComboBoxItem() { Content = "Gleittag" });
             this.vacation_type.Items.Add(new ComboBoxItem() { Content = "Arbeitstag" });
+            this.vacation_type.Items.Add(new ComboBoxItem() { Content = "HomeOffice" });
         }
 
         private void datetimepicker_vacation_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
@@ -49,6 +50,9 @@ namespace TimeLogger.Pages
                     case TimeLoggerController.VacationType.Work:
                         this.vacation_type.SelectedIndex = 2;
                         break;
+                    case TimeLoggerController.VacationType.HomeOffice:
+                        this.vacation_type.SelectedIndex = 3;
+                        break;
                     default:
                         break;
                 }
@@ -67,12 +71,16 @@ namespace TimeLogger.Pages
                 case 1:
                     type = TimeLoggerController.VacationType.Flexitime;
                     break;
+                case 3:
+                    type = TimeLoggerController.VacationType.HomeOffice;
+                    break;
                 default:
                     break;
             }
             TimeLoggerController.GetInstance().UpdateVacationList((DateTime)this.datetimepicker_vacation.SelectedDate, type);
             this.lbl_resturlaub.Content = TimeLoggerController.GetInstance().GetRemainingVacationDays();
             this.lbl_gleittage.Content = TimeLoggerController.GetInstance().CountVacationType(TimeLoggerController.VacationType.Flexitime);
+            this.lbl_homeoffice.Content = TimeLoggerController.GetInstance().CountVacationType(TimeLoggerController.VacationType.HomeOffice);
         }
     }
 }
