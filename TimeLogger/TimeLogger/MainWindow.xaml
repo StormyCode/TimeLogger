@@ -23,11 +23,11 @@
                 <mui:Link DisplayName="" Source="/Pages/Logfile.xaml" />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
-        <mui:LinkGroup DisplayName="about">
+        <!--<mui:LinkGroup DisplayName="about">
             <mui:LinkGroup.Links>
                 <mui:Link DisplayName="" Source="/Pages/About.xaml" />
             </mui:LinkGroup.Links>
-        </mui:LinkGroup>
+        </mui:LinkGroup>-->
     </mui:ModernWindow.MenuLinkGroups>
 
     <mui:ModernWindow.TitleLinks>
