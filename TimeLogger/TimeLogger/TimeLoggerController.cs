@@ -345,7 +345,7 @@ namespace TimeLogger
 
         public int CountVacationType(VacationType type)
         {
-            return this.VacationList.Where(x => x.Value == type).Count();
+            return this.VacationList.Where(x => x.Value == type).Where(x => x.Key.Year == DateTime.Today.Year).Count();
         }
 
         public void UpdateVacationList(DateTime dt, VacationType type)
