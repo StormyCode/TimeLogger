@@ -194,7 +194,7 @@ namespace TimeLogger
 
         #region All about Settings
         /// <summary>
-        /// Beinhaltet ein Dictionary mit allen Einstellungen zum einer Tlc Instanz
+        /// Beinhaltet ein Dictionary mit allen Einstellungen zu einer Tlc Instanz
         /// </summary>
         public Dictionary<string, string> Settings { get; private set; }
         /// <summary>
@@ -214,7 +214,7 @@ namespace TimeLogger
                         this.Settings.Add(properties[0], properties[1]);
                 }
             }
-            //Default Einstellunge setzen, falls kein Wert vordefiniert
+            //Default Einstellungen setzen, falls kein Wert vordefiniert
             if (this.Settings.ContainsKey("duration_lunchtime") == false)
                 this.UpdateSetting("duration_lunchtime", "1");
             if (this.Settings.ContainsKey("working_hours") == false)
