@@ -24,14 +24,13 @@ namespace TimeLogger
     {
         public MainWindow()
         {
-            InitializeComponent();
-            TimeLoggerController.GetInstance();
+            InitializeComponent();            
         }
 
         private void ModernWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            TimeLoggerController.GetInstance().UpdateSetting("accent_color", AppearanceManager.Current.AccentColor.ToString());
-            //TimeLoggerController.GetInstance().UpdateSetting("theme_color", theme);
+            TimeLoggerController.Instance.Settings.AccentColor = AppearanceManager.Current.AccentColor.ToString();
+            TimeLoggerController.Instance.Serialize();
         }
     }
 }

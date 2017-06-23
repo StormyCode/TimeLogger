@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimeLogger.Models;
 
 namespace TimeLogger.Pages
 {
@@ -23,35 +24,35 @@ namespace TimeLogger.Pages
         public Urlaub()
         {
             InitializeComponent();
-            this.datetimepicker_vacation.SelectedDate = DateTime.Today;
-            if (TimeLoggerController.GetInstance().GetRemainingVacationDays() > 0)
-                this.vacation_type.Items.Add(new ComboBoxItem() { Content = "Urlaub" });
-            this.vacation_type.Items.Add(new ComboBoxItem() { Content = "Gleittag" });
-            this.vacation_type.Items.Add(new ComboBoxItem() { Content = "Arbeitstag" });
-            this.vacation_type.Items.Add(new ComboBoxItem() { Content = "HomeOffice" });
+            datetimepicker_vacation.SelectedDate = DateTime.Today;
+            if (TimeLoggerController.Instance.GetRemainingVacationDays() > 0)
+                vacation_type.Items.Add(new ComboBoxItem() { Content = "Urlaub" });
+            vacation_type.Items.Add(new ComboBoxItem() { Content = "Gleittag" });
+            vacation_type.Items.Add(new ComboBoxItem() { Content = "Arbeitstag" });
+            vacation_type.Items.Add(new ComboBoxItem() { Content = "HomeOffice" });
         }
 
         private void datetimepicker_vacation_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (TimeLoggerController.GetInstance().GetDateVacationType((DateTime)this.datetimepicker_vacation.SelectedDate) == TimeLoggerController.VacationType.Work
-                && (((DateTime)this.datetimepicker_vacation.SelectedDate).DayOfWeek == DayOfWeek.Saturday
-                    || ((DateTime)this.datetimepicker_vacation.SelectedDate).DayOfWeek == DayOfWeek.Sunday))
-                this.vacation_type.SelectedIndex = -1;
+            if (TimeLoggerController.Instance.GetDateVacationType((DateTime)datetimepicker_vacation.SelectedDate) == VacationLog.VacationType.Work
+                && (((DateTime)datetimepicker_vacation.SelectedDate).DayOfWeek == DayOfWeek.Saturday
+                    || ((DateTime)datetimepicker_vacation.SelectedDate).DayOfWeek == DayOfWeek.Sunday))
+                vacation_type.SelectedIndex = -1;
             else
             {
-                switch (TimeLoggerController.GetInstance().GetDateVacationType((DateTime)this.datetimepicker_vacation.SelectedDate))
+                switch (TimeLoggerController.Instance.GetDateVacationType((DateTime)datetimepicker_vacation.SelectedDate))
                 {
-                    case TimeLoggerController.VacationType.Vacation:
-                        this.vacation_type.SelectedIndex = 0;
+                    case VacationLog.VacationType.Vacation:
+                        vacation_type.SelectedIndex = 0;
                         break;
-                    case TimeLoggerController.VacationType.Flexitime:
-                        this.vacation_type.SelectedIndex = 1;
+                    case VacationLog.VacationType.Flextime:
+                        vacation_type.SelectedIndex = 1;
                         break;
-                    case TimeLoggerController.VacationType.Work:
-                        this.vacation_type.SelectedIndex = 2;
+                    case VacationLog.VacationType.Work:
+                        vacation_type.SelectedIndex = 2;
                         break;
-                    case TimeLoggerController.VacationType.HomeOffice:
-                        this.vacation_type.SelectedIndex = 3;
+                    case VacationLog.VacationType.HomeOffice:
+                        vacation_type.SelectedIndex = 3;
                         break;
                     default:
                         break;
@@ -62,25 +63,25 @@ namespace TimeLogger.Pages
 
         private void vacation_type_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TimeLoggerController.VacationType type = TimeLoggerController.VacationType.Work;
-            switch (this.vacation_type.SelectedIndex)
+            VacationLog.VacationType type = VacationLog.VacationType.Work;
+            switch (vacation_type.SelectedIndex)
             {
                 case 0:
-                    type = TimeLoggerController.VacationType.Vacation;
+                    type = VacationLog.VacationType.Vacation;
                     break;
                 case 1:
-                    type = TimeLoggerController.VacationType.Flexitime;
+                    type = VacationLog.VacationType.Flextime;
                     break;
                 case 3:
-                    type = TimeLoggerController.VacationType.HomeOffice;
+                    type = VacationLog.VacationType.HomeOffice;
                     break;
                 default:
                     break;
             }
-            TimeLoggerController.GetInstance().UpdateVacationList((DateTime)this.datetimepicker_vacation.SelectedDate, type);
-            this.lbl_resturlaub.Content = TimeLoggerController.GetInstance().GetRemainingVacationDays();
-            this.lbl_gleittage.Content = TimeLoggerController.GetInstance().CountVacationType(TimeLoggerController.VacationType.Flexitime);
-            this.lbl_homeoffice.Content = TimeLoggerController.GetInstance().CountVacationType(TimeLoggerController.VacationType.HomeOffice);
+            TimeLoggerController.Instance.UpdateVacationList((DateTime)datetimepicker_vacation.SelectedDate, type);
+            lbl_resturlaub.Content = TimeLoggerController.Instance.GetRemainingVacationDays();
+            lbl_gleittage.Content = TimeLoggerController.Instance.CountVacationType(VacationLog.VacationType.Flextime);
+            lbl_homeoffice.Content = TimeLoggerController.Instance.CountVacationType(VacationLog.VacationType.HomeOffice);
         }
     }
 }

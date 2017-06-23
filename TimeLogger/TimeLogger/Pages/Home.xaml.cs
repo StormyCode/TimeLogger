@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FirstFloor.ModernUI.Presentation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimeLogger.Models;
 
 namespace TimeLogger.Pages
 {
@@ -23,39 +25,38 @@ namespace TimeLogger.Pages
         public Home()
         {
             InitializeComponent();
-            this.datetimepicker.SelectedDate = DateTime.Today;
+            datetimepicker.SelectedDate = DateTime.Today;
+            AppearanceManager.Current.AccentColor = (Color)ColorConverter.ConvertFromString(TimeLoggerController.Instance.Settings.AccentColor);
         }
 
         private void txtbox_start_TextChanged(object sender, TextChangedEventArgs e)
         {
             TimeSpan abc = new TimeSpan();
-            if (!TimeSpan.TryParse(this.txtbox_start.Text, out abc))
-                this.txtbox_start.Foreground = new SolidColorBrush(Colors.Red);
+            if (!TimeSpan.TryParse(txtbox_start.Text, out abc))
+                txtbox_start.Foreground = new SolidColorBrush(Colors.Red);
             else
-                this.txtbox_start.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffd1d1d1"));
+                txtbox_start.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffd1d1d1"));
             //Setzt den Enabled Wert für den Action-Button abhängig davon ob die Inhalte beider Textboxen zulässige Eingaben sind
-            TimeSpan start = new TimeSpan();
-            TimeSpan end = new TimeSpan();
-            this.action_button.IsEnabled = TimeSpan.TryParse(this.txtbox_start.Text, out start) && TimeSpan.TryParse(this.txtbox_end.Text, out end);
+            action_button.IsEnabled = TimeLog.Validate(txtbox_start.Text) && TimeLog.Validate(txtbox_end.Text);
         }
 
         private void txtbox_end_TextChanged(object sender, TextChangedEventArgs e)
         {
             TimeSpan abc = new TimeSpan();
-            if (!TimeSpan.TryParse(this.txtbox_end.Text, out abc))
+            if (!TimeSpan.TryParse(txtbox_end.Text, out abc))
             {
-                this.txtbox_end.Foreground = new SolidColorBrush(Colors.Red);
+                txtbox_end.Foreground = new SolidColorBrush(Colors.Red);
                 //this.txtbox_end.BorderBrush = new SolidColorBrush(Colors.Red);
             }
             else
             {
-                this.txtbox_end.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffd1d1d1"));
+                txtbox_end.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffd1d1d1"));
                 //this.txtbox_end.BorderBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ffd1d1d1"));
             }
             //Setzt den Enabled Wert für den Action-Button abhängig davon ob die Inhalte beider Textboxen zulässige Eingaben sind
             TimeSpan start = new TimeSpan();
             TimeSpan end = new TimeSpan();
-            this.action_button.IsEnabled = TimeSpan.TryParse(this.txtbox_start.Text, out start) && TimeSpan.TryParse(this.txtbox_end.Text, out end);
+            action_button.IsEnabled = TimeSpan.TryParse(txtbox_start.Text, out start) && TimeSpan.TryParse(txtbox_end.Text, out end);
         }
 
         private void datetimepicker_PreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -69,22 +70,22 @@ namespace TimeLogger.Pages
 
         private void datetimepicker_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            LogItem item = TimeLoggerController.GetInstance().GetLogItemByDate((DateTime)this.datetimepicker.SelectedDate);
+            TimeLog item = TimeLoggerController.Instance.GetLogItemByDate((DateTime)datetimepicker.SelectedDate);
             if (item != null)
             {
-                this.txtbox_start.Text = item.Start.ToString(@"hh\:mm");
-                this.txtbox_end.Text = item.End.ToString(@"hh\:mm");
+                txtbox_start.Text = item.Start;
+                txtbox_end.Text = item.End;
             }
             else
             {
-                this.txtbox_start.Text = String.Empty;
-                this.txtbox_end.Text = String.Empty;
+                txtbox_start.Text = string.Empty;
+                txtbox_end.Text = string.Empty;
             }
         }
 
         private void action_button_Click(object sender, RoutedEventArgs e)
         {
-            TimeLoggerController.GetInstance().Log(new LogItem(String.Format("{0};{1};{2}", (DateTime)this.datetimepicker.SelectedDate, this.txtbox_start.Text, this.txtbox_end.Text)));
+            TimeLoggerController.Instance.WriteLog(new TimeLog(string.Format("{0};{1};{2}", (DateTime)datetimepicker.SelectedDate, txtbox_start.Text, txtbox_end.Text)));
             //action_button.Foreground = Brushes.LightGreen;
 
             FirstFloor.ModernUI.Windows.Controls.ModernDialog dialog = new FirstFloor.ModernUI.Windows.Controls.ModernDialog()
@@ -98,12 +99,12 @@ namespace TimeLogger.Pages
 
         private void txtbox_start_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            this.txtbox_start.Text = DateTime.Now.AddMinutes(-int.Parse(TimeLoggerController.GetInstance().Settings["doubleclick_autoinsert_timespan"])).ToShortTimeString();
+            txtbox_start.Text = DateTime.Now.AddMinutes(-TimeLoggerController.Instance.Settings.AutoInsertTime).ToShortTimeString();
         }
 
         private void txtbox_end_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            this.txtbox_end.Text = DateTime.Now.AddMinutes(int.Parse(TimeLoggerController.GetInstance().Settings["doubleclick_autoinsert_timespan"])).ToShortTimeString();
+            txtbox_end.Text = DateTime.Now.AddMinutes(TimeLoggerController.Instance.Settings.AutoInsertTime).ToShortTimeString();
         }
     }
 }

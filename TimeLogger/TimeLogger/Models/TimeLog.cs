@@ -1,95 +1,108 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TimeLogger
+namespace TimeLogger.Models
 {
-    class LogItem
+    public class TimeLog
     {
         /// <summary>
         /// Stellt das Datum des LogItems dar
         /// </summary>
+        [XmlAttribute]
         public DateTime Date { get; set; }
         /// <summary>
         /// Stellt die Startuhrzeit des LogItems dar
         /// </summary>
-        public TimeSpan Start { get; set; }
+        [XmlAttribute]
+        public string Start { get; set; }
         /// <summary>
         /// Stellt die Enduhrzeit des LogItems dar
         /// </summary>
-        public TimeSpan End { get; set; }
+        [XmlAttribute]
+        public string End { get; set; }
+
+        public TimeLog() { }
+
         /// <summary>
         /// Legt eine neue Instanz von LogItem mit bestimmtem Datum und Zeiten an
         /// </summary>
         /// <param name="date">Datum des LogItems</param>
         /// <param name="starttime">Startzeit des LogItems</param>
         /// <param name="endtime">Endzeit des LogItems</param>
-        public LogItem(DateTime date, TimeSpan starttime, TimeSpan endtime)
+        public TimeLog(DateTime date, TimeSpan starttime, TimeSpan endtime)
         {
-            this.Date = date;
-            this.Start = starttime;
-            this.End = endtime;
+            Date = date;
+            Start = starttime.ToString(@"hh\:mm");
+            End = endtime.ToString(@"hh\:mm");
         }
+
         /// <summary>
         /// Legt eine neue Instanz von LogItem anhand eines Strings des Formats "Datum;Startzeit;Endzeit" an
         /// </summary>
         /// <param name="str"></param>
-        public LogItem(string str)
+        public TimeLog(string str)
         {
             string[] data = str.Split(';');
             DateTime date = new DateTime();
             DateTime.TryParse(data[0], out date);
-            this.Date = date;
+            Date = date;
             TimeSpan start = new TimeSpan();
             TimeSpan.TryParse(data[1], out start);
-            this.Start = start;
+            Start = start.ToString(@"hh\:mm");
             TimeSpan end = new TimeSpan();
             TimeSpan.TryParse(data[2], out end);
-            this.End = end;
+            End = end.ToString(@"hh\:mm");
         }
+
         /// <summary>
         /// Gibt das LogItem in "Datum;Startzeit;Endzeit" Format zurück
         /// </summary>
         /// <returns>String, der das LogItems darstellt</returns>
         public override string ToString()
         {
-            return String.Format("{0};{1};{2}", this.Date, this.Start, this.End);
+            return string.Format("{0};{1};{2}", Date, Start, End);
         }
+
         /// <summary>
         /// Gibt die Differenz zwischen Start- und Endzeit zurück
         /// </summary>
         /// <returns>TimeSpan, der die Differenz zwischen Start- und Endzeit widerspiegelt</returns>
         public TimeSpan GetDifference()
         {
-            int lunchtimeHours = int.Parse(TimeLoggerController.GetInstance().Settings["duration_lunchtime"]);
-            return (this.End.Subtract(this.Start)).Subtract(new TimeSpan(lunchtimeHours, 0, 0));
+            int lunchtimeHours = TimeLoggerController.Instance.Settings.DurationLunchTime;
+            TimeSpan start = new TimeSpan();
+            TimeSpan.TryParse(Start, out start);
+            TimeSpan end = new TimeSpan();
+            TimeSpan.TryParse(End, out end);
+            return (end.Subtract(start)).Subtract(new TimeSpan(lunchtimeHours, 0, 0));
         }
+
         /// <summary>
         /// Statische Methode, die ermittelt, ob das Datum und die Zeitangaben zulässig sind
         /// </summary>
         /// <param name="date">Datum des LogItems</param>
         /// <param name="starttime">Startzeit des LogItems</param>
-        /// <param name="endtime">Endzeit des LogItems</param>
+        /// <param name="time">Endzeit des LogItems</param>
         /// <returns></returns>
-        public static bool Validate(DateTime date, string starttime, string endtime)
+        public static bool Validate(string time)
         {
-            bool valid = true;
-            TimeSpan start = new TimeSpan();
-            valid &= TimeSpan.TryParse(starttime, out start);
+            if (string.IsNullOrEmpty(time)) return true;
             TimeSpan end = new TimeSpan();
-            valid &= TimeSpan.TryParse(endtime, out end);
-            return valid;
+            return TimeSpan.TryParse(time, out end);
         }
+
         /// <summary>
         /// Statische Methode, die ermittelt, ob das Datum und die Zeitangaben zulässig sind
         /// </summary>
         /// <param name="item">Das überprüfende LogItem</param>
         /// <returns></returns>
-        public static bool Validate(LogItem item)
+        public static bool Validate(TimeLog item)
         {
-            return LogItem.Validate(item.Date, item.Start.ToString(), item.End.ToString());
+            return Validate(item.Start) && string.IsNullOrEmpty(item.End) ? true : Validate(item.End);
         }
     }
 }

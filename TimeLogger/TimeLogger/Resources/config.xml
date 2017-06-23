@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <timelog path="log.txt" backupat="9999"/>
+  <specialdaylog path="specialdays.txt" />
+  <specialdays>
+    <option name="vacation" count="year"/>
+    <option name="homeoffice" count="year"/>
+    <option name="flextime" count="year"/>
+    <option name="payed time-off" count="year"/>
+  </specialdays>
+  <lunch duration="1" />
+  <workday duration="7" />
+  <doubleclickinserttime min="5" />
+  <theme style="dark" accent="#FFFFFF"/>
+</config>

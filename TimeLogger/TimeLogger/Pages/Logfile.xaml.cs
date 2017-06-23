@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimeLogger.Models;
 
 namespace TimeLogger.Pages
 {
@@ -28,24 +29,23 @@ namespace TimeLogger.Pages
 
         private void RichTextBox_Loaded(object sender, RoutedEventArgs e)
         {
-            TimeLoggerController.GetInstance().ReadLogFile();
             richtxtbox.Document.Blocks.Clear();
-            string txt = String.Empty;
-            foreach (LogItem item in TimeLoggerController.GetInstance().LogList.OrderBy(o=>o.Date).Reverse().ToList())
+            string txt = string.Empty;
+            foreach (TimeLog item in TimeLoggerController.Instance.Log.OrderBy(o=>o.Date).Reverse())
             {
                 if (txt.Length > 0)
                     txt += "\n";
-                txt += String.Format("{0}\t{1}\t{2}\t{3}", item.Date.ToShortDateString(), item.Start.ToString(@"hh\:mm"), item.End.ToString(@"hh\:mm"), item.GetDifference().ToString(@"hh\:mm"));
+                txt += string.Format("{0}\t{1}\t{2}\t{3}", item.Date.ToShortDateString(), item.Start, item.End, item.GetDifference().ToString(@"hh\:mm"));
             }
             richtxtbox.AppendText(txt);
 
             //Die GesamtDifferenz in das vorgesehene Label schreiben
-            this.lbl_gesamtdiff.Content = TimeLoggerController.GetInstance().GetLogSum();
+            lbl_gesamtdiff.Content = TimeLoggerController.Instance.GetLogSum();
         }
 
         private void save_logfile_Click(object sender, RoutedEventArgs e)
         {
-            TimeLoggerController.GetInstance().SaveLogFileToFile();
+            TimeLoggerController.Instance.SaveLogFileToFile();
             System.Windows.Forms.MessageBox.Show("LogFile wurde erfolgreich exportiert!", "Export", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
         }
     }
