@@ -12,7 +12,5 @@ namespace TimeLogger.Models
 
         public VacationType Type { get; set; }
         public DateTime Date { get; set; }
-
-        public enum VacationType { Vacation, Flextime, Work, HomeOffice }
     }
 }

@@ -24,18 +24,17 @@ namespace TimeLogger.Pages
         public BasicPage1()
         {
             InitializeComponent();
-
         }
 
         private void RichTextBox_Loaded(object sender, RoutedEventArgs e)
         {
             richtxtbox.Document.Blocks.Clear();
             string txt = string.Empty;
-            foreach (TimeLog item in TimeLoggerController.Instance.Log.OrderBy(o=>o.Date).Reverse())
+            foreach (TimeLog item in TimeLoggerController.Instance.Log.OrderByDescending(o=>o.Date))
             {
                 if (txt.Length > 0)
                     txt += "\n";
-                txt += string.Format("{0}\t{1}\t{2}\t{3}", item.Date.ToShortDateString(), item.Start, item.End, item.GetDifference().ToString(@"hh\:mm"));
+                txt += string.Format("{0}\t{1}\t{2}\t{3}", item.Date.ToShortDateString(), item.Start, item.End != "00:00" ? item.End : "TBD", item.GetDifference().ToString(@"hh\:mm"));
             }
             richtxtbox.AppendText(txt);
 

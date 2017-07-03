@@ -12,7 +12,6 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using TimeLogger.Models;
-using static TimeLogger.Models.VacationLog;
 
 namespace TimeLogger
 {
@@ -44,6 +43,7 @@ namespace TimeLogger
         public List<TimeLog> Log { get; set; }
 
         public List<VacationLog> VacationList { get; set; }
+        public List<VacationType> VacationTypes { get; set; }
 
         public void Serialize()
         {
@@ -129,7 +129,7 @@ namespace TimeLogger
             TimeSpan sum = new TimeSpan();
             foreach (TimeLog item in Log.Where(x => x.End != "00:00"))
             {
-                sum = sum.Add(item.GetDifference().Subtract(new TimeSpan(Instance.Settings.WorkingHoursPerDay, 0, 0)).Subtract(new TimeSpan(CountVacationType(VacationType.Flextime) * Settings.WorkingHoursPerDay, 0, 0)));
+                sum = sum.Add(item.GetDifference().Subtract(new TimeSpan(Instance.Settings.WorkingHoursPerDay, 0, 0)).Subtract(new TimeSpan(CountVacationType("Flextime") * Settings.WorkingHoursPerDay, 0, 0)));
             }
             return string.Format("{0}T {1}h {2}m", sum.Days, sum.Hours, sum.Minutes);
         }
@@ -172,12 +172,12 @@ namespace TimeLogger
         /// <returns>Anzahl der verbleibenden Urlaubstage</returns>
         public int GetRemainingVacationDays()
         {
-            return Settings.DaysVacationPerYear - CountVacationType(VacationType.Vacation);
+            return Settings.DaysVacationPerYear - CountVacationType("Vacation");
         }
 
-        public int CountVacationType(VacationType type)
+        public int CountVacationType(string type)
         {
-            return VacationList.Count(x => x.Type == type && x.Date.Year == DateTime.Today.Year);
+            return VacationList.Count(x => x.Type.Name.ToLower() == type.ToLower() && x.Date.Year == DateTime.Today.Year);
         }
 
         public void UpdateVacationList(DateTime dt, VacationType type)
@@ -193,18 +193,32 @@ namespace TimeLogger
                 }
             }
             if (!found)
-            {
                 VacationList.Add(new VacationLog() { Date = dt, Type = type });
-            }
 
-            VacationList = VacationList.Where(x => x.Type != VacationType.Work).ToList();
+            VacationList = VacationList.Where(x => x.Type != null && x.Type.Name != "Work").ToList();
             Serialize();
         }
 
         public VacationType GetDateVacationType(DateTime dt)
         {
-            VacationLog vlog = VacationList.Where(x => x.Date == dt).FirstOrDefault();
-            return vlog != null ? vlog.Type : VacationType.Work;
+            foreach (VacationLog log in VacationList)
+            {
+                if (log.Date.Date == dt.Date)
+                {
+                    return log.Type;
+                }
+            }
+            return null;
+        }
+
+        public VacationType GetVacationTypeByName(string name)
+        {
+            foreach (VacationType type in VacationTypes)
+            {
+                if (type.Name == name)
+                    return type;
+            }
+            return null;
         }
     }
 }

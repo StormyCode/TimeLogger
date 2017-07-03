@@ -25,63 +25,64 @@ namespace TimeLogger.Pages
         {
             InitializeComponent();
             datetimepicker_vacation.SelectedDate = DateTime.Today;
-            if (TimeLoggerController.Instance.GetRemainingVacationDays() > 0)
-                vacation_type.Items.Add(new ComboBoxItem() { Content = "Urlaub" });
-            vacation_type.Items.Add(new ComboBoxItem() { Content = "Gleittag" });
-            vacation_type.Items.Add(new ComboBoxItem() { Content = "Arbeitstag" });
-            vacation_type.Items.Add(new ComboBoxItem() { Content = "HomeOffice" });
+            foreach (VacationType type in TimeLoggerController.Instance.VacationTypes)
+            {
+                if (type.Enabled)
+                {
+                    vacation_type.Items.Add(new ComboBoxItem() { Content = type.Name });
+                }
+            }
+            UpdateTextBlock();
         }
 
         private void datetimepicker_vacation_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (TimeLoggerController.Instance.GetDateVacationType((DateTime)datetimepicker_vacation.SelectedDate) == VacationLog.VacationType.Work
-                && (((DateTime)datetimepicker_vacation.SelectedDate).DayOfWeek == DayOfWeek.Saturday
-                    || ((DateTime)datetimepicker_vacation.SelectedDate).DayOfWeek == DayOfWeek.Sunday))
-                vacation_type.SelectedIndex = -1;
-            else
+            bool found = false;
+            VacationType type = TimeLoggerController.Instance.GetDateVacationType((DateTime)datetimepicker_vacation.SelectedDate);
+            if (type != null)
             {
-                switch (TimeLoggerController.Instance.GetDateVacationType((DateTime)datetimepicker_vacation.SelectedDate))
+                for (int i = 0; i < vacation_type.Items.Count; i++)
                 {
-                    case VacationLog.VacationType.Vacation:
-                        vacation_type.SelectedIndex = 0;
+                    if (type.Name == ((ComboBoxItem)vacation_type.Items[i]).Content.ToString())
+                    {
+                        vacation_type.SelectedIndex = i;
+                        found = true;
                         break;
-                    case VacationLog.VacationType.Flextime:
-                        vacation_type.SelectedIndex = 1;
-                        break;
-                    case VacationLog.VacationType.Work:
-                        vacation_type.SelectedIndex = 2;
-                        break;
-                    case VacationLog.VacationType.HomeOffice:
-                        vacation_type.SelectedIndex = 3;
-                        break;
-                    default:
-                        break;
+                    }
                 }
             }
-
+            if (!found)
+                vacation_type.SelectedIndex = -1;
         }
 
         private void vacation_type_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            VacationLog.VacationType type = VacationLog.VacationType.Work;
-            switch (vacation_type.SelectedIndex)
+            if (vacation_type.SelectedItem != null)
             {
-                case 0:
-                    type = VacationLog.VacationType.Vacation;
-                    break;
-                case 1:
-                    type = VacationLog.VacationType.Flextime;
-                    break;
-                case 3:
-                    type = VacationLog.VacationType.HomeOffice;
-                    break;
-                default:
-                    break;
+                VacationType type = TimeLoggerController.Instance.GetVacationTypeByName(((ComboBoxItem)vacation_type.SelectedItem).Content.ToString());
+                if (type != null && type.Enabled)
+                {
+                    TimeLoggerController.Instance.UpdateVacationList((DateTime)datetimepicker_vacation.SelectedDate, type);
+                } 
             }
-            TimeLoggerController.Instance.UpdateVacationList((DateTime)datetimepicker_vacation.SelectedDate, type);
-            lbl_resturlaub.Content = TimeLoggerController.Instance.GetRemainingVacationDays();
-            lbl_gleittage.Content = TimeLoggerController.Instance.CountVacationType(VacationLog.VacationType.Flextime);
-            lbl_homeoffice.Content = TimeLoggerController.Instance.CountVacationType(VacationLog.VacationType.HomeOffice);
+
+            UpdateTextBlock();
+            //lbl_resturlaub.Content = TimeLoggerController.Instance.GetRemainingVacationDays();
+            //lbl_gleittage.Content = TimeLoggerController.Instance.CountVacationType(VacationLog.VacationType.Flextime);
+            //lbl_homeoffice.Content = TimeLoggerController.Instance.CountVacationType(VacationLog.VacationType.HomeOffice);
+        }
+
+        private void UpdateTextBlock()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (VacationType vtype in TimeLoggerController.Instance.VacationTypes)
+            {
+                if (vtype.Enabled && vtype.CountEnabled)
+                {
+                    sb.AppendLine(""+vtype.Name+": "+TimeLoggerController.Instance.CountVacationType(vtype.Name));
+                }
+            }
+            textBlock.Text = sb.ToString();
         }
     }
 }

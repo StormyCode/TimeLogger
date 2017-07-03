@@ -1,2 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<timelogger></timelogger>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TimeLoggerController xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Settings AccentColor="#FFF0A30A" ThemeColor="dark" AutoInsertTime="0" ExportDirectory="Export\" DurationLunchTime="1" WorkingHoursPerDay="7" DaysVacationPerYear="30" />
+  <Log>
+  </Log>
+  <VacationList />
+</TimeLoggerController>

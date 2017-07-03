@@ -13,20 +13,8 @@
             </StackPanel>
         </ScrollViewer>
         <ComboBox x:Name="vacation_type" Margin="231,27,0,0" VerticalAlignment="Top" Width="120" FontFamily="Verdana" HorizontalAlignment="Left" SelectionChanged="vacation_type_SelectionChanged"/>
-        <Label HorizontalAlignment="Left" Margin="231,148,0,0" VerticalAlignment="Top" FontSize="14" Width="97" Height="36" FontFamily="Verdana" >
-            <Label.Content>
-                <AccessText TextWrapping="Wrap" Text="Verbleibende Urlaubstage:" Height="36"/>
-            </Label.Content>
-        </Label>
-        <Label HorizontalAlignment="Left" Margin="231,105,0,0" VerticalAlignment="Top" FontSize="14" Width="97" Height="36" FontFamily="Verdana" >
-            <Label.Content>
-                <AccessText TextWrapping="Wrap" Text="Genommene Gleittage:" Height="36"/>
-            </Label.Content>
-        </Label>
-        <Label HorizontalAlignment="Left" Margin="231,64,0,0" VerticalAlignment="Top" FontSize="14" Width="97" Height="36" FontFamily="Verdana" >
-            <Label.Content>
-                <AccessText TextWrapping="Wrap" Text="Anzahl HomeOffice:" Height="36"/>
-            </Label.Content>
+        <Label HorizontalAlignment="Left" Margin="224,64,0,0" VerticalAlignment="Top" FontSize="14" Width="146" Height="120" FontFamily="Verdana" >
+            <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="TextBlock"/>
         </Label>
         <Label Content="Tag auswählen:" HorizontalAlignment="Left" Margin="231,5,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="14" />
         <Label x:Name="lbl_resturlaub" Content="" HorizontalAlignment="Left" Margin="326,167,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="14" HorizontalContentAlignment="Right" Width="25"/>
