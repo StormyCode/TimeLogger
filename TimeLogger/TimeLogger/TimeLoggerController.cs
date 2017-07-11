@@ -155,13 +155,35 @@ namespace TimeLogger
         /// </summary>
         public void SaveLogFileToFile()
         {
-            using (StreamWriter sw = new StreamWriter(Settings.ExportDirectory + DateTime.Today.ToShortDateString() + @"_Export_Log.csv", false))
+            if (!string.IsNullOrEmpty(Settings.ExportDirectory))
             {
-                //sw.WriteLine("Datum;Startzeit;Endzeit;Zeitdifferenz");
-                foreach (TimeLog item in Log)
+                string s = Settings.ExportDirectory + DateTime.Today.ToShortDateString() + @"_Export_Log.csv";
+                FileInfo fi = new FileInfo(@s);
+                if (!fi.Directory.Exists)
+                    fi.Directory.Create();
+                using (StreamWriter sw = new StreamWriter(@s, false))
                 {
-                    sw.WriteLine(item.ToString());
+                    sw.WriteLine("Datum;Startzeit;Endzeit;Zeitdifferenz");
+                    foreach (TimeLog item in Log)
+                    {
+                        sw.WriteLine(item.ToString());
+                    }
                 }
+                FirstFloor.ModernUI.Windows.Controls.ModernDialog dialog = new FirstFloor.ModernUI.Windows.Controls.ModernDialog()
+                {
+                    Content = "Stored at "+@s,
+                    Title = "LogFile exported!"
+                };
+                dialog.ShowDialog();
+            }
+            else
+            {
+                FirstFloor.ModernUI.Windows.Controls.ModernDialog dialog = new FirstFloor.ModernUI.Windows.Controls.ModernDialog()
+                {
+                    Content = "Export directory not defined. Please edit your timelogger.xml file!",
+                    Title = "Error"
+                };
+                dialog.ShowDialog();
             }
         }
 
