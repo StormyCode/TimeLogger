@@ -4,4 +4,9 @@
   <Log>
   </Log>
   <VacationList />
+  <VacationTypes>
+    <VacationType Name="Work" Enabled="true" CountEnabled="false" />
+    <VacationType Name="Vacation" Enabled="true" CountEnabled="true" />
+    <VacationType Name="Homeoffice" Enabled="true" CountEnabled="true" />
+  </VacationTypes>
 </TimeLoggerController>
